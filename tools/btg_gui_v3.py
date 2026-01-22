@@ -1,3 +1,32 @@
+
+"""
+Batch Texture Generator (btg) GUI for TAoB Minecraft Fabric Mod
+
+This tool provides a graphical interface for batch texture generation, palette validation, normalization, extraction, recoloring, template-based generation, and asset creation for the TAoB mod.
+
+Resource paths and asset formats are tailored for the TAoB mod structure:
+    - Textures: src/main/resources/assets/taob/textures/
+    - Items: src/main/resources/assets/taob/items/
+    - Models: src/main/resources/assets/taob/models/
+    - Lang: src/main/resources/assets/taob/lang/en_us.json
+    - Recipes, loot tables, tags: src/main/resources/data/taob/
+
+Usage:
+    - Run this script to launch the GUI.
+    - Select the TAoB repo root and use the tabs to perform batch operations on mod assets.
+    - All output paths and formats are compatible with TAoB's resource/data conventions.
+
+Tabs:
+    - Validate: Validate palettes and schemas for TAoB asset formats.
+    - Normalize: Normalize palettes for consistent mod asset generation.
+    - Extract: Extract palettes from PNG textures in TAoB resource folders.
+    - Recolor: Batch recolor textures using palette swaps, with TAoB asset conventions.
+    - Generate: Generate new textures from templates and palettes, outputting to TAoB resource folders.
+    - AutoTemplate: Heuristically generate template definitions for TAoB mod assets.
+    - Assets: Generate item, model, and lang JSON files for TAoB, with correct namespace and overwrite options.
+
+All resource paths default to TAoB's src/main/resources layout, and output formats match Minecraft/Fabric conventions for assets and data packs.
+"""
 from __future__ import annotations
 
 import os
@@ -12,6 +41,10 @@ import btg_v3 as btg
 
 
 class TkLogHandler(btg.logging.Handler):
+    """
+    Custom log handler for displaying btg log output in the GUI.
+    Integrates with TAoB mod logging conventions.
+    """
     def __init__(self, q: "queue.Queue[str]") -> None:
         super().__init__()
         self._q = q
@@ -24,6 +57,10 @@ class TkLogHandler(btg.logging.Handler):
 
 
 def _browse_dir(var: tk.StringVar, *, title: str) -> None:
+    """
+    Open a directory selection dialog and set the result to the given StringVar.
+    Used for selecting TAoB resource/data folders.
+    """
     from tkinter import filedialog
 
     p = filedialog.askdirectory(title=title)
@@ -32,6 +69,10 @@ def _browse_dir(var: tk.StringVar, *, title: str) -> None:
 
 
 class App(ttk.Frame):
+    """
+    Main GUI application for TAoB Batch Texture Generator.
+    Provides tabs for all major asset/data workflows, with resource paths and formats tailored for TAoB.
+    """
     def __init__(self, master: tk.Tk) -> None:
         super().__init__(master)
         self.master = master
@@ -44,6 +85,9 @@ class App(ttk.Frame):
         self._poll_logs()
 
     def _setup_logging(self) -> None:
+        """
+        Configure logging to display btg output in the GUI, using TAoB conventions.
+        """
         handler = TkLogHandler(self.log_q)
         handler.setFormatter(btg.logging.Formatter("%(levelname)s: %(message)s"))
 
@@ -57,6 +101,10 @@ class App(ttk.Frame):
         root.addHandler(handler)
 
     def _build_ui(self) -> None:
+        """
+        Build the main UI, including all tabs for TAoB asset/data workflows.
+        Resource paths default to TAoB src/main/resources layout.
+        """
         self.master.title("Batch Texture Generator (btg)")
         self.master.geometry("1020x760")
 
@@ -115,6 +163,9 @@ class App(ttk.Frame):
         ).pack(side="left")
 
     def _poll_logs(self) -> None:
+        """
+        Poll the log queue and update the output text area.
+        """
         try:
             while True:
                 line = self.log_q.get_nowait()
@@ -126,6 +177,9 @@ class App(ttk.Frame):
         self.after(100, self._poll_logs)
 
     def _run_in_thread(self, argv: List[str]) -> None:
+        """
+        Run a btg command in a background thread, with repo root set to TAoB mod root.
+        """
         if self._worker and self._worker.is_alive():
             messagebox.showwarning("Busy", "A task is already running.")
             return
@@ -154,6 +208,11 @@ class App(ttk.Frame):
     def _row_dir(
         self, parent: ttk.Frame, row: int, label: str, var: tk.StringVar
     ) -> None:
+        """
+        Add a directory selection row to the UI, tailored for TAoB resource/data folders.
+        """
+        self, parent: ttk.Frame, row: int, label: str, var: tk.StringVar
+    ) -> None:
         ttk.Label(parent, text=label).grid(row=row, column=0, sticky="w")
         ttk.Entry(parent, textvariable=var, width=70).grid(
             row=row, column=1, sticky="w", padx=8
@@ -167,6 +226,11 @@ class App(ttk.Frame):
     def _row_text(
         self, parent: ttk.Frame, row: int, label: str, var: tk.StringVar
     ) -> None:
+        """
+        Add a text entry row to the UI, tailored for TAoB asset/data formats.
+        """
+        self, parent: ttk.Frame, row: int, label: str, var: tk.StringVar
+    ) -> None:
         ttk.Label(parent, text=label).grid(row=row, column=0, sticky="w")
         ttk.Entry(parent, textvariable=var, width=70).grid(
             row=row, column=1, sticky="w", padx=8
@@ -174,6 +238,10 @@ class App(ttk.Frame):
 
     # ---- Tabs ----
     def _build_validate_tab(self) -> None:
+        """
+        Build the Validate tab for palette/schema validation.
+        Paths default to TAoB resource/data folders.
+        """
         f = ttk.Frame(self.tab_validate)
         f.pack(fill="x", padx=10, pady=10)
 
@@ -198,6 +266,10 @@ class App(ttk.Frame):
         ).grid(row=2, column=0, sticky="w", pady=(10, 0))
 
     def _build_normalize_tab(self) -> None:
+        """
+        Build the Normalize tab for palette normalization.
+        Paths default to TAoB resource/data folders.
+        """
         f = ttk.Frame(self.tab_normalize)
         f.pack(fill="x", padx=10, pady=10)
 
@@ -213,6 +285,10 @@ class App(ttk.Frame):
         ).grid(row=1, column=0, sticky="w", pady=(10, 0))
 
     def _build_extract_tab(self) -> None:
+        """
+        Build the Extract tab for palette extraction from PNG textures.
+        Paths default to TAoB resource/data folders.
+        """
         f = ttk.Frame(self.tab_extract)
         f.pack(fill="x", padx=10, pady=10)
 
@@ -253,6 +329,10 @@ class App(ttk.Frame):
         ).grid(row=4, column=0, sticky="w", pady=(10, 0))
 
     def _build_recolor_tab(self) -> None:
+        """
+        Build the Recolor tab for batch palette swaps on TAoB textures.
+        All input/output paths and palette formats match TAoB conventions.
+        """
         f = ttk.Frame(self.tab_recolor)
         f.pack(fill="x", padx=10, pady=10)
 
@@ -343,6 +423,10 @@ class App(ttk.Frame):
         )
 
     def _build_generate_tab(self) -> None:
+        """
+        Build the Generate tab for template-based texture generation.
+        Output formats and resource paths match TAoB asset conventions.
+        """
         f = ttk.Frame(self.tab_generate)
         f.pack(fill="x", padx=10, pady=10)
 
@@ -427,6 +511,10 @@ class App(ttk.Frame):
         )
 
     def _build_autotemplate_tab(self) -> None:
+        """
+        Build the AutoTemplate tab for heuristic template definition generation.
+        Output formats and resource paths match TAoB asset conventions.
+        """
         f = ttk.Frame(self.tab_autotemplate)
         f.pack(fill="x", padx=10, pady=10)
 
@@ -485,6 +573,10 @@ class App(ttk.Frame):
         )
 
     def _build_assets_tab(self) -> None:
+        """
+        Build the Assets tab for generating item, model, and lang JSON files for TAoB.
+        Output formats and resource paths match TAoB asset/data conventions.
+        """
         f = ttk.Frame(self.tab_assets)
         f.pack(fill="x", padx=10, pady=10)
 
@@ -536,6 +628,9 @@ class App(ttk.Frame):
 
 
 def main() -> None:
+    """
+    Launch the TAoB Batch Texture Generator GUI.
+    """
     root = tk.Tk()
     ttk.Style().theme_use("clam")
     App(root)

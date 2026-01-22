@@ -1,3 +1,18 @@
+
+"""
+Batch Texture Generator (btg) Core for TAoB Minecraft Fabric Mod
+
+This module provides core logic for batch texture generation, palette validation, normalization, extraction, recoloring, template-based generation, and asset creation for the TAoB mod.
+
+Resource paths and asset formats are tailored for the TAoB mod structure:
+    - Textures: src/main/resources/assets/taob/textures/
+    - Items: src/main/resources/assets/taob/items/
+    - Models: src/main/resources/assets/taob/models/
+    - Lang: src/main/resources/assets/taob/lang/en_us.json
+    - Recipes, loot tables, tags: src/main/resources/data/taob/
+
+All output paths and formats are compatible with TAoB's resource/data conventions and Minecraft/Fabric standards.
+"""
 from __future__ import annotations
 
 import argparse
@@ -61,6 +76,9 @@ def color_dist2(a: RGBA, b: RGBA, *, alpha_weight: float = 0.25) -> float:
 # ----------------------------
 @dataclass(frozen=True, slots=True)
 class PaletteGroup:
+    """
+    Represents a group of colors in a palette, used for TAoB asset generation.
+    """
     colors: List[str]
     comment: str = ""
 
@@ -70,6 +88,9 @@ class PaletteGroup:
 
 @dataclass(frozen=True, slots=True)
 class PaletteItem:
+    """
+    Represents a palette item for a specific material and asset in TAoB.
+    """
     id: str
     name: str
     path: str
@@ -95,6 +116,9 @@ class PaletteItem:
 # ----------------------------
 @dataclass(frozen=True, slots=True)
 class SlotSource:
+    """
+    Source definition for a template slot, referencing a palette and group for TAoB assets.
+    """
     palette: str  # relative to palettes/
     id: str
     group: str = "base"
@@ -102,6 +126,9 @@ class SlotSource:
 
 @dataclass(frozen=True, slots=True)
 class TemplateSlot:
+    """
+    Template slot definition for asset generation, supporting includes/excludes for TAoB mod assets.
+    """
     slot: str  # placeholder name, e.g. {wood}, {metal}, {glass}
     material: str  # material folder name under palettes/
     source: SlotSource
@@ -111,6 +138,9 @@ class TemplateSlot:
 
 @dataclass(frozen=True, slots=True)
 class TemplateDef:
+    """
+    Template definition for batch asset generation in TAoB, including output pattern and slots.
+    """
     template_id: str
     template_path: str
     output_pattern: str
@@ -121,10 +151,16 @@ class TemplateDef:
 # JSON helpers
 # ----------------------------
 def load_json(path: Path) -> dict:
+    """
+    Load a JSON file from the given path. Used for TAoB asset and palette files.
+    """
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def save_json(path: Path, data: dict) -> None:
+    """
+    Save a dictionary as a JSON file to the given path. Used for TAoB asset and palette files.
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
         json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
@@ -132,6 +168,9 @@ def save_json(path: Path, data: dict) -> None:
 
 
 def _rel_posix(path: Path, base: Path) -> str:
+    """
+    Return a posix-style relative path, for Minecraft/Fabric asset conventions.
+    """
     return path.relative_to(base).as_posix()
 
 
@@ -139,6 +178,9 @@ def _rel_posix(path: Path, base: Path) -> str:
 # Schema validation (local refs)
 # ----------------------------
 def _build_registry(schema_dir: Path) -> Optional["Registry"]:
+    """
+    Build a local schema registry for validating TAoB asset and palette files.
+    """
     if Registry is None or Resource is None:
         return None
 
@@ -153,6 +195,10 @@ def _build_registry(schema_dir: Path) -> Optional["Registry"]:
 
 
 def validate_palette_json(palette_path: Path, schema_dir: Path) -> None:
+    """
+    Validate a palette JSON file against the TAoB schema.
+    Raises ValueError if validation fails.
+    """
     schema_path = schema_dir / "texture-palettes.schema.json"
     schema = load_json(schema_path)
     instance = load_json(palette_path)
@@ -185,6 +231,9 @@ def validate_palette_json(palette_path: Path, schema_dir: Path) -> None:
 # Palette parsing / indexing
 # ----------------------------
 def parse_palette_file(palette_path: Path) -> List[PaletteItem]:
+    """
+    Parse a TAoB palette file and return a list of PaletteItem objects.
+    """
     raw = load_json(palette_path)
     if raw.get("schema") != "texture-palettes":
         raise ValueError(f"{palette_path}: 'schema' must be 'texture-palettes'")
@@ -215,6 +264,10 @@ def load_all_palettes_index(
     palettes_dir: Path,
 ) -> Dict[str, Dict[str, Tuple[Path, PaletteItem]]]:
     """
+    Index all palettes in the given directory for TAoB asset generation.
+    Returns: material -> id -> (palette_file_path, item)
+    """
+    """
     Returns:
       material -> id -> (palette_file_path, item)
     """
@@ -235,6 +288,11 @@ def load_all_palettes_index(
 def extract_palette_from_png(
     png_path: Path, *, max_colors: int = 32, min_alpha: int = 1
 ) -> List[RGBA]:
+    """
+    Deterministic palette extraction from PNG textures for TAoB assets.
+    - If unique colors <= max_colors: return exact set (sorted)
+    - Otherwise: use k-means clustering (not implemented here)
+    """
     """
     Deterministic palette extraction:
     - If unique colors <= max_colors: return exact set (sorted)
@@ -516,8 +574,8 @@ def cmd_assets(args: argparse.Namespace) -> int:
     if not textures_dir.exists():
         raise SystemExit(f"Textures dir not found: {textures_dir.as_posix()}")
 
-    # IMPORTANT: only output/textures/item/*.png (non-recursive)
-    pngs = sorted(textures_dir.glob("*.png"))
+    # Support output/textures/item/* and subfolders (barrels/, flasks/, etc.)
+    pngs = sorted(textures_dir.rglob("*.png"))
     if not pngs:
         LOG.warning("No PNGs found in %s", textures_dir.as_posix())
         return 0
@@ -528,12 +586,20 @@ def cmd_assets(args: argparse.Namespace) -> int:
     written_models = 0
     lang_changes = 0
 
+
     for png in pngs:
+        # Determine subfolder structure from relative path
+        rel = png.relative_to(textures_dir)
         item_id = png.stem
         if not item_id:
             continue
 
-        model_loc = f"{namespace}:item/{item_id}"
+        # Example: barrels/oak_iron_barrel.json, flasks/large/large_oak_glass_flask.json
+        item_subpath = rel.with_suffix(".json")
+        model_subpath = rel.with_suffix(".json")
+
+        # Use TAoB namespace and correct model location
+        model_loc = f"taob:item/{rel.as_posix().replace('\\', '/').replace('.png', '')}"
 
         item_json = {
             "model": {
@@ -546,8 +612,10 @@ def cmd_assets(args: argparse.Namespace) -> int:
             "textures": {"layer0": model_loc},
         }
 
-        item_path = items_dir / f"{item_id}.json"
-        model_path = models_dir / f"{item_id}.json"
+        item_path = items_dir / item_subpath
+        model_path = models_dir / model_subpath
+        item_path.parent.mkdir(parents=True, exist_ok=True)
+        model_path.parent.mkdir(parents=True, exist_ok=True)
 
         if args.dry_run:
             LOG.info("[DRY] Would write %s", item_path.as_posix())
@@ -560,7 +628,8 @@ def cmd_assets(args: argparse.Namespace) -> int:
             LOG.info("Wrote %s", item_path.as_posix())
             LOG.info("Wrote %s", model_path.as_posix())
 
-        lang_key = f"item.{namespace}.{item_id}"
+        # Lang key: item.taob.barrels.oak_iron_barrel, item.taob.flasks.large.large_oak_glass_flask
+        lang_key = f"item.taob.{rel.with_suffix('').as_posix().replace('/', '.')}"
         lang_val = _title_from_id(item_id)
 
         if args.overwrite_lang or (lang_key not in lang):
@@ -608,10 +677,15 @@ def cmd_extract(args: argparse.Namespace) -> int:
     schema_rel = args.schema_ref
 
     count = 0
+
     for png in sorted(textures_dir.rglob("*.png")):
-        material = png.parent.name
+        # Enforce TAoB subfolder structure for palettes
+        # Example: palettes/barrels/oak_iron_barrel.texture-palettes.json
+        rel = png.relative_to(textures_dir)
+        material = rel.parts[0] if len(rel.parts) > 1 else png.parent.name
         item_id = png.stem
         out_path = palettes_dir / material / f"{item_id}.texture-palettes.json"
+        out_path.parent.mkdir(parents=True, exist_ok=True)
 
         colors = extract_palette_from_png(
             png, max_colors=args.max_colors, min_alpha=args.min_alpha
@@ -626,7 +700,7 @@ def cmd_extract(args: argparse.Namespace) -> int:
                 {
                     "id": item_id,
                     "name": item_id.replace("_", " ").title(),
-                    "path": f"textures/{material}/{png.name}".replace("\\", "/"),
+                    "path": f"textures/{rel.as_posix()}".replace("\\", "/"),
                     "material": material,
                     "groups": {
                         "base": {
@@ -684,9 +758,12 @@ def cmd_recolor(args: argparse.Namespace) -> int:
         LOG.warning("No PNG files found in %s", inp.as_posix())
         return 0
 
+
     for f in files:
+        # Enforce TAoB subfolder structure for recolored textures
         rel = f.relative_to(inp)
         out_path = out / rel
+        out_path.parent.mkdir(parents=True, exist_ok=True)
         recolor_png(
             f,
             out_path,
@@ -802,10 +879,18 @@ def cmd_generate(args: argparse.Namespace) -> int:
         if args.limit is not None:
             combos = itertools.islice(combos, int(args.limit))
 
+
         for combo in combos:
             mapping = {tdef.slots[i].slot: combo[i] for i in range(len(combo))}
             filename = _safe_format_pattern(tdef.output_pattern, mapping)
+
+            # Enforce TAoB subfolder structure for output textures
+            # Example: output/textures/item/flasks/large/large_oak_glass_flask.png
             out_path = output_dir / filename
+            out_path = out_path.resolve()
+
+            # If output_dir is .../item, ensure subfolders (flasks/large/, barrels/, etc.)
+            out_path.parent.mkdir(parents=True, exist_ok=True)
 
             if args.dry_run:
                 LOG.info("[DRY] %s -> %s", template_png.name, out_path.as_posix())
@@ -838,7 +923,6 @@ def cmd_generate(args: argparse.Namespace) -> int:
 
             out_img = Image.new("RGBA", img.size)
             out_img.putdata(out_pixels)
-            out_path.parent.mkdir(parents=True, exist_ok=True)
             out_img.save(out_path)
 
             total_written += 1
