@@ -1,0 +1,20 @@
+{
+  "itemGroup.taob.main": "The Art of Brewing",
+
+  "comment.taob.flasks.small_flasks": "Small flasks used for brewing and storing fluids.",
+  "fluid.taob.flasks.fluid.small_flask_fluid_overlay": "Small Flask Fluid Overlay",
+  "item.taob.flasks.small.oak_glass_flask": "Small Oak Glass Flask",
+
+  "comment.taob.flasks.medium_flasks": "Medium flasks used for brewing and storing fluids.",
+  "fluid.taob.flasks.fluid.medium_flask_fluid_overlay": "Medium Flask Fluid Overlay",
+  "item.taob.flasks.medium.oak_glass_flask": "Medium Oak Glass Flask",
+
+  "comment.taob.flasks.large_flasks": "Large flasks used for brewing and storing fluids.",
+  "fluid.taob.flasks.fluid.large_flask_fluid_overlay": "Large Flask Fluid Overlay",
+  "item.taob.flasks.large.oak_glass_flask": "Large Oak Glass Flask",
+
+  "comment.taob.barrels.barrels": "Barrels used for fermenting, aging brews and storing fluids.",
+  "item.taob.barrels.oak_iron_barrel": "Oak Iron Barrel",
+
+  "block.taob.barrels.oak_iron_barrel": "Oak Iron Barrel"
+}
