@@ -1,76 +1,12 @@
-# Resource Structure
+# The Art of Brewing
 
-```
-resources
-├─ assets
-│  └─ taob
-│     ├─ blockstates
-│     │  └─ barrels
-│     │     └─ oak_iron_barrel.json
-│     ├─ items
-│     │  ├─ barrels
-│     │  │  └─ oak_iron_barrel.json
-│     │  └─ flasks
-│     │     ├─ large
-│     │     │  └─ large_oak_glass_flask.json
-│     │     ├─ medium
-│     │     │  └─ medium_oak_glass_flask.json
-│     │     └─ small
-│     │        └─ small_oak_glass_flask.json
-│     ├─ lang
-│     │  └─ en_us.json
-│     ├─ models
-│     │  ├─ block
-│     │  │  └─ barrels
-│     │  │     └─ oak_iron_barrel.json
-│     │  └─ item
-│     │     └─ flasks
-│     │        ├─ large
-│     │        │  └─ large_oak_glass_flask.json
-│     │        ├─ medium
-│     │        │  └─ medium_oak_glass_flask.json
-│     │        └─ small
-│     │           └─ small_oak_glass_flask.json
-│     └─ textures
-│        ├─ block
-│        │  └─ barrels
-│        │     ├─ oak_barrel_bottom.png
-│        │     ├─ oak_barrel_top.png
-│        │     └─ oak_iron_barrel_side.png
-│        └─ item
-│           └─ flasks
-│              ├─ fluid
-│              │  ├─ large_flask_fluid_overlay.png
-│              │  ├─ medium_flask_fluid_overlay.png
-│              │  └─ small_flask_fluid_overlay.png
-│              ├─ large
-│              │  └─ large_oak_glass_flask.png
-│              ├─ medium
-│              │  └─ medium_oak_glass_flask.png
-│              └─ small
-│                 └─ small_oak_glass_flask.png
-├─ data
-│  └─ taob
-│     ├─ advancement
-│     ├─ loot_table
-│     │  └─ barrels
-│     │     └─ oak_iron_barrel.json
-│     ├─ recipe
-│     │  ├─ barrels
-│     │  │  └─ oak_iron_barrel.json
-│     │  └─ flasks
-│     │     ├─ large
-│     │     │  └─ large_oak_glass_flask.json
-│     │     ├─ medium
-│     │     │  └─ medium_oak_glass_flask.json
-│     │     └─ small
-│     │        └─ small_oak_glass_flask.json
-│     └─ tags
-│        └─ taob
-│           ├─ barrels.json
-│           ├─ large_flasks.json
-│           ├─ medium_flasks.json
-│           └─ small_flasks.json
-├─ fabric.mod.json
-└─ icon.png
-```
+The Art of Brewing adds a variety of new brewing mechanics, alcohol beverages and recipes to enhance the potion-making experience in Minecraft by expanding the possibilities of potion creation with alcoholic beverages.
+
+## Features
+
+- New brewing mechanics
+- Variety of alcoholic beverages (using vanilla minecraft ingredients)
+- New items (flasks, barrels, etc.)
+- New blocks (barrels, etc.)
+- New recipes (for different flask sizes, barrels and brewing alcoholic beverages)
+- Enhanced potion-making experience with alcoholic beverages
