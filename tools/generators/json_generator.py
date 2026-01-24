@@ -7,7 +7,7 @@ from typing import Any, Dict, Iterable, List, Optional
 from tools.config import MOD, PATHS
 from tools.logger_setup import setup_logger
 from tools.utils.json_utils import write_json
-from tools.utils.naming_utils import assert_valid_id, namespaced
+from tools.utils.naming_utils import assert_valid_id
 
 log = setup_logger(__name__)
 

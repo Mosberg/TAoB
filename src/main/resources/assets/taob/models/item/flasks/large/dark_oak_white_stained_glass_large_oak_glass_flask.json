@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "taob:item/flasks/large/dark_oak_white_stained_glass_large_oak_glass_flask",
+    "layer1": "taob:item/flasks/fluid/large_flask_fluid_overlay"
+  }
+}

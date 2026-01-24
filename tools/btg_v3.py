@@ -1,4 +1,3 @@
-
 """
 Batch Texture Generator (btg) Core for TAoB Minecraft Fabric Mod
 
@@ -13,6 +12,7 @@ Resource paths and asset formats are tailored for the TAoB mod structure:
 
 All output paths and formats are compatible with TAoB's resource/data conventions and Minecraft/Fabric standards.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -22,6 +22,7 @@ import logging
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
+from typing import cast
 
 from jsonschema import Draft202012Validator
 from PIL import Image
@@ -79,6 +80,7 @@ class PaletteGroup:
     """
     Represents a group of colors in a palette, used for TAoB asset generation.
     """
+
     colors: List[str]
     comment: str = ""
 
@@ -91,6 +93,7 @@ class PaletteItem:
     """
     Represents a palette item for a specific material and asset in TAoB.
     """
+
     id: str
     name: str
     path: str
@@ -119,6 +122,7 @@ class SlotSource:
     """
     Source definition for a template slot, referencing a palette and group for TAoB assets.
     """
+
     palette: str  # relative to palettes/
     id: str
     group: str = "base"
@@ -129,6 +133,7 @@ class TemplateSlot:
     """
     Template slot definition for asset generation, supporting includes/excludes for TAoB mod assets.
     """
+
     slot: str  # placeholder name, e.g. {wood}, {metal}, {glass}
     material: str  # material folder name under palettes/
     source: SlotSource
@@ -141,6 +146,7 @@ class TemplateDef:
     """
     Template definition for batch asset generation in TAoB, including output pattern and slots.
     """
+
     template_id: str
     template_path: str
     output_pattern: str
@@ -177,7 +183,7 @@ def _rel_posix(path: Path, base: Path) -> str:
 # ----------------------------
 # Schema validation (local refs)
 # ----------------------------
-def _build_registry(schema_dir: Path) -> Optional["Registry"]:
+def _build_registry(schema_dir: Path) -> Optional[Any]:
     """
     Build a local schema registry for validating TAoB asset and palette files.
     """
@@ -299,24 +305,31 @@ def extract_palette_from_png(
     - Else: quantize to max_colors
     """
     img = Image.open(png_path).convert("RGBA")
-    pixels = list(img.getdata())
+    pixels: List[RGBA] = [
+        cast(RGBA, tuple(p)) if len(p) == 4 else cast(RGBA, (p[0], p[1], p[2], 255))
+        for p in img.getdata()
+        if isinstance(p, (tuple, list))
+        and (len(p) == 4 or len(p) == 3)
+        and all(isinstance(x, int) for x in p)
+    ]
 
     uniq = sorted({p for p in pixels if p[3] >= min_alpha})
     if 0 < len(uniq) <= max_colors:
-        return uniq
+        return [cast(RGBA, p) for p in uniq]
 
     q = img.quantize(colors=max_colors, method=Image.Quantize.MEDIANCUT)
     pal = q.getpalette() or []
-    used = sorted(set(q.getdata()))
+    used = sorted({i for i in q.getdata() if isinstance(i, int)})
 
     out: List[RGBA] = []
     for idx in used:
-        r = pal[idx * 3 + 0]
-        g = pal[idx * 3 + 1]
-        b = pal[idx * 3 + 2]
-        a = 255
-        if a >= min_alpha:
-            out.append((r, g, b, a))
+        if isinstance(idx, int):
+            r = pal[idx * 3 + 0]
+            g = pal[idx * 3 + 1]
+            b = pal[idx * 3 + 2]
+            a = 255
+            if a >= min_alpha:
+                out.append((r, g, b, a))
     return out[:max_colors]
 
 
@@ -347,7 +360,13 @@ def recolor_png(
     exact_first: bool = True,
 ) -> None:
     img = Image.open(input_png).convert("RGBA")
-    pixels: List[RGBA] = list(img.getdata())
+    pixels: List[RGBA] = [
+        cast(RGBA, tuple(p))
+        for p in img.getdata()
+        if isinstance(p, (tuple, list))
+        and len(p) == 4
+        and all(isinstance(x, int) for x in p)
+    ]
 
     dst_by_src_index = build_index_map(src_palette, dst_palette)
 
@@ -413,7 +432,7 @@ def _classify_pixels_for_slots(
             for ci, c in enumerate(pal):
                 exact_lookup.setdefault(c, (si, ci))
 
-    uniq = {p for p in pixels if p[3] >= min_alpha}
+    uniq = {p for p in list(pixels) if p[3] >= min_alpha}
     mapping: Dict[RGBA, Tuple[int, int]] = {}
 
     for p in uniq:
@@ -575,7 +594,7 @@ def cmd_assets(args: argparse.Namespace) -> int:
         raise SystemExit(f"Textures dir not found: {textures_dir.as_posix()}")
 
     # Support output/textures/item/* and subfolders (barrels/, flasks/, etc.)
-    pngs = sorted(textures_dir.rglob("*.png"))
+    pngs = sorted(list(textures_dir.rglob("*.png")))
     if not pngs:
         LOG.warning("No PNGs found in %s", textures_dir.as_posix())
         return 0
@@ -585,7 +604,6 @@ def cmd_assets(args: argparse.Namespace) -> int:
     written_items = 0
     written_models = 0
     lang_changes = 0
-
 
     for png in pngs:
         # Determine subfolder structure from relative path
@@ -601,16 +619,39 @@ def cmd_assets(args: argparse.Namespace) -> int:
         # Use TAoB namespace and correct model location
         model_loc = f"taob:item/{rel.as_posix().replace('\\', '/').replace('.png', '')}"
 
+        # Determine if this is a flask and which size
+        overlay_layer = None
+        if "flasks" in rel.parts:
+            # Find flask size (small, medium, large) in path
+            flask_size = None
+            for size in ("small", "medium", "large"):
+                if size in rel.parts:
+                    flask_size = size
+                    break
+            if flask_size:
+                overlay_layer = (
+                    f"taob:item/flasks/fluid/{flask_size}_flask_fluid_overlay"
+                )
+
         item_json = {
             "model": {
                 "type": "minecraft:model",
                 "model": model_loc,
             }
         }
-        model_json = {
-            "parent": "item/generated",
-            "textures": {"layer0": model_loc},
-        }
+        if overlay_layer:
+            model_json = {
+                "parent": "item/generated",
+                "textures": {
+                    "layer0": model_loc,
+                    "layer1": overlay_layer,
+                },
+            }
+        else:
+            model_json = {
+                "parent": "item/generated",
+                "textures": {"layer0": model_loc},
+            }
 
         item_path = items_dir / item_subpath
         model_path = models_dir / model_subpath
@@ -758,7 +799,6 @@ def cmd_recolor(args: argparse.Namespace) -> int:
         LOG.warning("No PNG files found in %s", inp.as_posix())
         return 0
 
-
     for f in files:
         # Enforce TAoB subfolder structure for recolored textures
         rel = f.relative_to(inp)
@@ -866,7 +906,13 @@ def cmd_generate(args: argparse.Namespace) -> int:
 
         # Precompute per-pixel classification once per template
         img = Image.open(template_png).convert("RGBA")
-        pixels: List[RGBA] = list(img.getdata())
+        pixels: List[Tuple[int, int, int, int]] = [
+            cast(Tuple[int, int, int, int], tuple(p))
+            for p in img.getdata()
+            if isinstance(p, (tuple, list))
+            and len(p) == 4
+            and all(isinstance(x, int) for x in p)
+        ]
         pixel_class = _classify_pixels_for_slots(
             pixels,
             slot_src_palettes,
@@ -878,7 +924,6 @@ def cmd_generate(args: argparse.Namespace) -> int:
         combos: Iterable[Tuple[str, ...]] = itertools.product(*slot_choices)
         if args.limit is not None:
             combos = itertools.islice(combos, int(args.limit))
-
 
         for combo in combos:
             mapping = {tdef.slots[i].slot: combo[i] for i in range(len(combo))}
@@ -909,17 +954,21 @@ def cmd_generate(args: argparse.Namespace) -> int:
                 for src, dst in zip(slot_src_palettes, slot_dst_palettes, strict=True)
             ]
 
-            out_pixels: List[RGBA] = []
+            out_pixels: List[Tuple[int, int, int, int]] = []
             for p in pixels:
-                if p[3] < args.min_alpha:
-                    out_pixels.append(p)
-                    continue
-
-                si, ci = pixel_class[p]
-                dst = slot_dst_by_src[si][ci]
-                if not args.no_preserve_alpha:
-                    dst = (dst[0], dst[1], dst[2], p[3])
-                out_pixels.append(dst)
+                if (
+                    isinstance(p, tuple)
+                    and len(p) == 4
+                    and all(isinstance(x, int) for x in p)
+                ):
+                    if p[3] < args.min_alpha:
+                        out_pixels.append(p)
+                        continue
+                    si, ci = pixel_class[p]
+                    dst = slot_dst_by_src[si][ci]
+                    if not args.no_preserve_alpha:
+                        dst = (dst[0], dst[1], dst[2], p[3])
+                    out_pixels.append(dst)
 
             out_img = Image.new("RGBA", img.size)
             out_img.putdata(out_pixels)
@@ -949,8 +998,16 @@ def cmd_autotemplate(args: argparse.Namespace) -> int:
         template_id = png.stem
 
         img = Image.open(png).convert("RGBA")
-        pixels: List[RGBA] = list(img.getdata())
-        template_colors: set[RGBA] = {p for p in pixels if p[3] >= args.min_alpha}
+        pixels: List[Tuple[int, int, int, int]] = [
+            cast(Tuple[int, int, int, int], tuple(p))
+            for p in img.getdata()
+            if isinstance(p, (tuple, list))
+            and len(p) == 4
+            and all(isinstance(x, int) for x in p)
+        ]
+        template_colors: set[Tuple[int, int, int, int]] = {
+            p for p in pixels if p[3] >= args.min_alpha
+        }
 
         slots: List[Dict[str, Any]] = []
         slot_names: List[str] = []

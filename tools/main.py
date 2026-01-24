@@ -2,13 +2,11 @@ from __future__ import annotations
 
 import argparse
 import sys
-from pathlib import Path
 from typing import List
 
 from tools.config import MOD, PATHS, ensure_dirs
 from tools.logger_setup import setup_logger
 from tools.utils.json_utils import is_valid_json
-from tools.utils.naming_utils import normalize_id
 from tools.generators.json_generator import (
     BlockDef,
     Generator,

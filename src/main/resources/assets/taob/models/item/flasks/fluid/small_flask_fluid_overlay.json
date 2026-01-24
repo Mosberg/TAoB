@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "taob:item/flasks/fluid/small_flask_fluid_overlay"
+  }
+}

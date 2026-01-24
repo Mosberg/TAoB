@@ -1,4 +1,3 @@
-
 """
 Batch Texture Generator (btg) GUI for TAoB Minecraft Fabric Mod
 
@@ -27,6 +26,7 @@ Tabs:
 
 All resource paths default to TAoB's src/main/resources layout, and output formats match Minecraft/Fabric conventions for assets and data packs.
 """
+
 from __future__ import annotations
 
 import os
@@ -35,7 +35,7 @@ import threading
 import tkinter as tk
 from pathlib import Path
 from tkinter import messagebox, ttk
-from typing import List, Optional
+from typing import List
 
 import btg_v3 as btg
 
@@ -45,6 +45,7 @@ class TkLogHandler(btg.logging.Handler):
     Custom log handler for displaying btg log output in the GUI.
     Integrates with TAoB mod logging conventions.
     """
+
     def __init__(self, q: "queue.Queue[str]") -> None:
         super().__init__()
         self._q = q
@@ -69,15 +70,24 @@ def _browse_dir(var: tk.StringVar, *, title: str) -> None:
 
 
 class App(ttk.Frame):
+    def _row_text(
+        self, parent: ttk.Frame, row: int, label: str, var: tk.StringVar
+    ) -> None:
+        ttk.Label(parent, text=label).grid(row=row, column=0, sticky="w")
+        ttk.Entry(parent, textvariable=var, width=70).grid(
+            row=row, column=1, sticky="w", padx=8
+        )
+
     """
     Main GUI application for TAoB Batch Texture Generator.
     Provides tabs for all major asset/data workflows, with resource paths and formats tailored for TAoB.
     """
+
     def __init__(self, master: tk.Tk) -> None:
         super().__init__(master)
         self.master = master
-        self.log_q: "queue.Queue[str]" = queue.Queue()
-        self._worker: Optional[threading.Thread] = None
+        self.log_q = queue.Queue()
+        self._worker = None
 
         self._setup_logging()
         self.pack(fill="both", expand=True)
@@ -105,8 +115,9 @@ class App(ttk.Frame):
         Build the main UI, including all tabs for TAoB asset/data workflows.
         Resource paths default to TAoB src/main/resources layout.
         """
-        self.master.title("Batch Texture Generator (btg)")
-        self.master.geometry("1020x760")
+        if isinstance(self.master, tk.Tk):
+            self.master.title("Batch Texture Generator (btg)")
+            self.master.geometry("1020x760")
 
         top = ttk.Frame(self)
         top.pack(fill="x", padx=10, pady=10)
@@ -205,12 +216,8 @@ class App(ttk.Frame):
         self._worker.start()
 
     # ---- UI helpers ----
+
     def _row_dir(
-        self, parent: ttk.Frame, row: int, label: str, var: tk.StringVar
-    ) -> None:
-        """
-        Add a directory selection row to the UI, tailored for TAoB resource/data folders.
-        """
         self, parent: ttk.Frame, row: int, label: str, var: tk.StringVar
     ) -> None:
         ttk.Label(parent, text=label).grid(row=row, column=0, sticky="w")
@@ -218,25 +225,9 @@ class App(ttk.Frame):
             row=row, column=1, sticky="w", padx=8
         )
         ttk.Button(
-            parent,
-            text="Browse…",
-            command=lambda v=var: _browse_dir(v, title=label),
+            parent, text="Browse…", command=lambda v=var: _browse_dir(v, title=label)
         ).grid(row=row, column=2, sticky="w")
 
-    def _row_text(
-        self, parent: ttk.Frame, row: int, label: str, var: tk.StringVar
-    ) -> None:
-        """
-        Add a text entry row to the UI, tailored for TAoB asset/data formats.
-        """
-        self, parent: ttk.Frame, row: int, label: str, var: tk.StringVar
-    ) -> None:
-        ttk.Label(parent, text=label).grid(row=row, column=0, sticky="w")
-        ttk.Entry(parent, textvariable=var, width=70).grid(
-            row=row, column=1, sticky="w", padx=8
-        )
-
-    # ---- Tabs ----
     def _build_validate_tab(self) -> None:
         """
         Build the Validate tab for palette/schema validation.
@@ -350,15 +341,6 @@ class App(ttk.Frame):
         self.rec_exact_first = tk.BooleanVar(value=True)
 
         self._row_dir(f, 0, "Palettes dir:", self.rec_palettes_dir)
-        self._row_text(
-            f, 1, "Source palette (relative to palettes/):", self.rec_src_palette
-        )
-        self._row_text(
-            f, 2, "Target palette (relative to palettes/):", self.rec_dst_palette
-        )
-        self._row_text(f, 3, "Source id:", self.rec_src_id)
-        self._row_text(f, 4, "Target id:", self.rec_dst_id)
-        self._row_text(f, 5, "Group (or blank for auto):", self.rec_group)
         self._row_dir(f, 6, "Input dir:", self.rec_input)
         self._row_dir(f, 7, "Output dir:", self.rec_output)
 
