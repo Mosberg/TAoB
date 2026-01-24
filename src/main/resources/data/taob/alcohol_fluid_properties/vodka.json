@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "taob:alcohol_fluid_properties/vodka",
+  "type": "taob:alcohol_fluid_properties",
+  "fluid": "taob:alcohol_fluids/vodka",
+  "alcohol_type": "taob:alcohol_types/vodka",
+  "viscosity": 1000,
+  "color": {
+    "base": "#FFFFFF",
+    "alpha": 1.0,
+    "blend": {
+      "enabled": true,
+      "mode": "MIX",
+      "mix_factor": 0.65
+    }
+  },
+  "interactions": [
+    {
+      "id": "taob:default_alcohol_container_rules",
+      "when": {
+        "context": "CONTAINER",
+        "container_tags": [
+          "taob:barrel_items",
+          "taob:barrel_blocks",
+          "taob:small_flask_items",
+          "taob:medium_flask_items",
+          "taob:large_flask_items"
+        ]
+      },
+      "effects": {
+        "allow_mixing": false,
+        "evaporation_rate": 0.0
+      }
+    }
+  ],
+  "ext": {}
+}
