@@ -1,38 +1,24 @@
 {
-  "comment.taob.item_groups": "Item Groups",
-
   "itemGroup.taob.barrels": "Barrels",
   "itemGroup.taob.small_flasks": "Small Flasks",
   "itemGroup.taob.medium_flasks": "Medium Flasks",
   "itemGroup.taob.large_flasks": "Large Flasks",
-
-  "comment.taob.overlays.fluid_overlays": "Fluid Overlays.",
-
   "overlay.taob.fluid.small_flask_fluid_overlay": "Small Flask Fluid Overlay",
   "overlay.taob.fluid.medium_flask_fluid_overlay": "Medium Flask Fluid Overlay",
   "overlay.taob.fluid.large_flask_fluid_overlay": "Large Flask Fluid Overlay",
-
-  "comment.taob.containers.fluid_containers": "Fluid Containers.",
-
   "container.taob.barrels": "Fluid: %s / %s",
   "container.taob.small_flask": "Fluid: %s / %s",
   "container.taob.medium_flask": "Fluid: %s / %s",
   "container.taob.large_flask": "Fluid: %s / %s",
-
-  "comment.taob.alcohol.effect_descriptions": "Alcohol Effect Descriptions.",
-
   "alcohol.potency.0": "",
-  "alcohol.potency.1": "II",
-  "alcohol.potency.2": "III",
-  "alcohol.potency.3": "IV",
-  "alcohol.potency.4": "V",
-  "alcohol.potency.5": "VI",
+  "alcohol.potency.1": " II",
+  "alcohol.potency.2": " III",
+  "alcohol.potency.3": " IV",
+  "alcohol.potency.4": " V",
+  "alcohol.potency.5": " VI",
   "alcohol.whenDrank": "When Applied:",
-  "alcohol.withAmplifier": "%s %s",
+  "alcohol.withAmplifier": "%s%s",
   "alcohol.withDuration": "%s (%s)",
-
-  "comment.taob.barrels.barrel_items": "Barrel Items.",
-
   "item.taob.acacia_copper_barrel": "Acacia Copper Barrel",
   "item.taob.acacia_copper_exposed_barrel": "Acacia Copper Exposed Barrel",
   "item.taob.acacia_copper_oxidized_barrel": "Acacia Copper Oxidized Barrel",
@@ -117,9 +103,6 @@
   "item.taob.warped_gold_barrel": "Warped Gold Barrel",
   "item.taob.warped_iron_barrel": "Warped Iron Barrel",
   "item.taob.warped_netherite_barrel": "Warped Netherite Barrel",
-
-  "comment.taob.barrels.barrel_blocks": "Barrel Blocks.",
-
   "block.taob.acacia_copper_barrel": "Acacia Copper Barrel",
   "block.taob.acacia_copper_exposed_barrel": "Acacia Copper Exposed Barrel",
   "block.taob.acacia_copper_oxidized_barrel": "Acacia Copper Oxidized Barrel",
@@ -204,9 +187,6 @@
   "block.taob.warped_gold_barrel": "Warped Gold Barrel",
   "block.taob.warped_iron_barrel": "Warped Iron Barrel",
   "block.taob.warped_netherite_barrel": "Warped Netherite Barrel",
-
-  "comment.taob.flasks.small_flasks": "Small flasks.",
-
   "item.taob.small_acacia_black_stained_glass_flask": "Small Acacia Black Stained Glass Flask",
   "item.taob.small_acacia_blue_stained_glass_flask": "Small Acacia Blue Stained Glass Flask",
   "item.taob.small_acacia_brown_stained_glass_flask": "Small Acacia Brown Stained Glass Flask",
@@ -423,9 +403,6 @@
   "item.taob.small_warped_tinted_glass_flask": "Small Warped Tinted Glass Flask",
   "item.taob.small_warped_white_stained_glass_flask": "Small Warped White Stained Glass Flask",
   "item.taob.small_warped_yellow_stained_glass_flask": "Small Warped Yellow Stained Glass Flask",
-
-  "comment.taob.flasks.medium_flasks": "Medium flasks.",
-
   "item.taob.medium_acacia_black_stained_glass_flask": "Medium Acacia Black Stained Glass Flask",
   "item.taob.medium_acacia_blue_stained_glass_flask": "Medium Acacia Blue Stained Glass Flask",
   "item.taob.medium_acacia_brown_stained_glass_flask": "Medium Acacia Brown Stained Glass Flask",
@@ -642,9 +619,6 @@
   "item.taob.medium_warped_tinted_glass_flask": "Medium Warped Tinted Glass Flask",
   "item.taob.medium_warped_white_stained_glass_flask": "Medium Warped White Stained Glass Flask",
   "item.taob.medium_warped_yellow_stained_glass_flask": "Medium Warped Yellow Stained Glass Flask",
-
-  "comment.taob.flasks.large_flasks": "Large flasks.",
-
   "item.taob.large_acacia_black_stained_glass_flask": "Large Acacia Black Stained Glass Flask",
   "item.taob.large_acacia_blue_stained_glass_flask": "Large Acacia Blue Stained Glass Flask",
   "item.taob.large_acacia_brown_stained_glass_flask": "Large Acacia Brown Stained Glass Flask",
