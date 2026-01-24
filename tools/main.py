@@ -98,10 +98,53 @@ def main(argv: List[str]) -> int:
 	parser.add_argument("--check", action="store_true", help="Validate outputs only; do not generate.")
 	args = parser.parse_args(argv)
 
+
 	if args.check:
 		return validate_outputs()
 
-	generate_all()
+	# --- New logic: scan textures/ and generate JSON for all PNGs ---
+	from pathlib import Path
+	from tools.generators.json_generator import ItemDef, BlockDef, Generator
+	from tools.utils.naming_utils import normalize_id
+	import re
+
+	ensure_dirs()
+	gen = Generator()
+
+	# 1. Scan for all PNGs
+	pngs = list(PATHS.textures.rglob("*.png"))
+	items = []
+	blocks = []
+	# 2. Classify and collect asset definitions
+	for png in pngs:
+		rel = png.relative_to(PATHS.textures)
+		parts = rel.parts
+		# Example: block/barrels/oak_iron_barrel.png or item/flasks/small/small_oak_glass_flask.png
+		if parts[0] == "block":
+			# block/<category>/<name>.png or block/<name>.png
+			block_id = normalize_id("_".join(parts[1:]).replace(".png", ""))
+			blocks.append(BlockDef(id=block_id, display_name=None))
+		elif parts[0] == "item":
+			# item/<category>/<name>.png or item/<name>.png
+			item_id = normalize_id("_".join(parts[1:]).replace(".png", ""))
+			items.append(ItemDef(id=item_id, handheld=False, display_name=None))
+		# Optionally handle overlays, fluids, etc. here if needed
+
+	# Remove duplicates (in case of multiple PNGs for same id)
+	items = {i.id: i for i in items}.values()
+	blocks = {b.id: b for b in blocks}.values()
+
+	# 3. Generate JSON files for all found assets
+	for it in items:
+		gen.write_item_model(it)
+	for bl in blocks:
+		gen.write_block_model(bl)
+		gen.write_blockstate(bl)
+		gen.write_block_item_model(bl)
+
+	# 4. Update lang file (names will be auto-generated if not present)
+	gen.write_lang_en_us(items, blocks, merge_existing=True)
+
 	return validate_outputs()
 
 if __name__ == "__main__":
