@@ -12,8 +12,21 @@ import net.minecraft.util.Identifier;
  * Base class for dynamically registered small flask items.
  */
 public class SmallFlaskItem extends Item {
-    public SmallFlaskItem(Settings settings) {
+    private final String woodType;
+    private final String color;
+
+    public SmallFlaskItem(Settings settings, String woodType, String color) {
         super(settings);
+        this.woodType = woodType;
+        this.color = color;
+    }
+
+    public String getWoodType() {
+        return woodType;
+    }
+
+    public String getColor() {
+        return color;
     }
 
     public static final Map<Identifier, SmallFlaskItem> SMALL_FLASK_ITEMS = new LinkedHashMap<>();

@@ -12,8 +12,21 @@ import net.minecraft.util.Identifier;
  * Base class for dynamically registered medium flask items.
  */
 public class MediumFlaskItem extends Item {
-    public MediumFlaskItem(Settings settings) {
+    private final String woodType;
+    private final String color;
+
+    public MediumFlaskItem(Settings settings, String woodType, String color) {
         super(settings);
+        this.woodType = woodType;
+        this.color = color;
+    }
+
+    public String getWoodType() {
+        return woodType;
+    }
+
+    public String getColor() {
+        return color;
     }
 
     public static final Map<Identifier, MediumFlaskItem> MEDIUM_FLASK_ITEMS = new LinkedHashMap<>();

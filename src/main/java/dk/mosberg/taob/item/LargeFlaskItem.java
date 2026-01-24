@@ -12,8 +12,21 @@ import net.minecraft.util.Identifier;
  * Base class for dynamically registered large flask items.
  */
 public class LargeFlaskItem extends Item {
-    public LargeFlaskItem(Settings settings) {
+    private final String woodType;
+    private final String color;
+
+    public LargeFlaskItem(Settings settings, String woodType, String color) {
         super(settings);
+        this.woodType = woodType;
+        this.color = color;
+    }
+
+    public String getWoodType() {
+        return woodType;
+    }
+
+    public String getColor() {
+        return color;
     }
 
     public static final Map<Identifier, LargeFlaskItem> LARGE_FLASK_ITEMS = new LinkedHashMap<>();

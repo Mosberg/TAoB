@@ -12,8 +12,21 @@ import net.minecraft.util.Identifier;
  * Base class for dynamically registered barrels.
  */
 public class BarrelBlock extends Block {
-    public BarrelBlock(Settings settings) {
+    private final String woodType;
+    private final String metalType;
+
+    public BarrelBlock(Settings settings, String woodType, String metalType) {
         super(settings);
+        this.woodType = woodType;
+        this.metalType = metalType;
+    }
+
+    public String getWoodType() {
+        return woodType;
+    }
+
+    public String getMetalType() {
+        return metalType;
     }
 
     // Registry for all dynamically created barrel blocks

@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "taob:alcohol_fluids/absinthe",
+    "taob:alcohol_fluids/ale",
+    "taob:alcohol_fluids/beer",
+    "taob:alcohol_fluids/brandy",
+    "taob:alcohol_fluids/cider",
+    "taob:alcohol_fluids/gin",
+    "taob:alcohol_fluids/lager",
+    "taob:alcohol_fluids/mead",
+    "taob:alcohol_fluids/rum",
+    "taob:alcohol_fluids/stout",
+    "taob:alcohol_fluids/vodka",
+    "taob:alcohol_fluids/whiskey",
+    "taob:alcohol_fluids/wine"
+  ]
+}

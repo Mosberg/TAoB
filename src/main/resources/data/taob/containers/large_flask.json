@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "id": "taob:flask_large",
+
+  "type": "taob:container_item",
+  "category": "containers",
+  "container_type": "flask",
+  "size": "large",
+  "item_registry": "taob:large_flask_items",
+
+  "units": { "fluid": "mB" },
+  "capacity": 1000,
+  "sip_amount": 250,
+
+  "fill_sound": "minecraft:item.bottle.fill",
+  "empty_sound": "minecraft:item.bottle.empty",
+  "drink_sound": "minecraft:entity.player.burp",
+
+  "sounds": {
+    "fill": { "id": "minecraft:item.bottle.fill", "volume": 1.0, "pitch": 1.0 },
+    "empty": { "id": "minecraft:item.bottle.empty", "volume": 1.0, "pitch": 1.0 },
+    "drink": { "id": "minecraft:entity.player.burp", "volume": 1.0, "pitch": 1.0 }
+  },
+
+  "storage": {
+    "persist": true,
+    "serialization": {
+      "nbt_key": "TaobContainer",
+      "fluid_key": "Fluid",
+      "amount_key": "Amount"
+    }
+  },
+
+  "fluid_rules": {
+    "allowed_fluid_tags": ["taob:drinkable_fluids"],
+    "blocked_fluid_tags": ["taob:blocked_fluids"],
+    "allow_mixing": false,
+    "allow_empty": true
+  },
+
+  "settings": {
+    "require_sneak_to_empty": true,
+    "allow_partial_transfers": false,
+    "cooldown_ticks": { "fill": 10, "empty": 10, "drink": 20 },
+    "fail_behavior": "PASS",
+
+    "allow_drink": true,
+    "drink_requires_sneak": false
+  },
+
+  "tooltip": {
+    "show_capacity": true,
+    "show_fluid": true,
+    "show_amounts": true
+  },
+
+  "interaction": {
+    "fill": {
+      "amount": 1000,
+      "mode": "ALL_OR_NOTHING",
+      "cooldown_ticks": 10,
+      "conditions": [{ "type": "taob:fluid_level", "comparison": "LESS_THAN", "value": 1 }]
+    },
+    "empty": {
+      "amount": 1000,
+      "mode": "ALL_OR_NOTHING",
+      "cooldown_ticks": 10,
+      "requires_sneak": true,
+      "conditions": [{ "type": "taob:fluid_level", "comparison": "GREATER_THAN", "value": 999 }]
+    },
+    "drink": {
+      "amount": 250,
+      "mode": "ALL_OR_NOTHING",
+      "cooldown_ticks": 20,
+      "requires_sneak": false,
+      "conditions": [
+        { "type": "taob:setting", "path": "settings.allow_drink", "value": true },
+        { "type": "taob:fluid_level", "comparison": "GREATER_THAN", "value": 249 }
+      ],
+      "effects": {
+        "hunger": 0,
+        "saturation": 0.0,
+        "status_effects": []
+      }
+    }
+  }
+}

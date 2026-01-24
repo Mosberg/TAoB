@@ -13,8 +13,21 @@ import net.minecraft.util.Identifier;
  * Base class for dynamically registered barrel items.
  */
 public class BarrelItem extends BlockItem {
-    public BarrelItem(Block block, Settings settings) {
+    private final String woodType;
+    private final String metalType;
+
+    public BarrelItem(Block block, Settings settings, String woodType, String metalType) {
         super(block, settings);
+        this.woodType = woodType;
+        this.metalType = metalType;
+    }
+
+    public String getWoodType() {
+        return woodType;
+    }
+
+    public String getMetalType() {
+        return metalType;
     }
 
     // Registry for all dynamically created barrel items

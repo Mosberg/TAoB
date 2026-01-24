@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "taob:alcohol_types/absinthe",
+    "taob:alcohol_types/ale",
+    "taob:alcohol_types/beer",
+    "taob:alcohol_types/brandy",
+    "taob:alcohol_types/cider",
+    "taob:alcohol_types/gin",
+    "taob:alcohol_types/lager",
+    "taob:alcohol_types/mead",
+    "taob:alcohol_types/rum",
+    "taob:alcohol_types/stout",
+    "taob:alcohol_types/vodka",
+    "taob:alcohol_types/whiskey",
+    "taob:alcohol_types/wine"
+  ]
+}
