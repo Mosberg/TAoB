@@ -1,25 +1,17 @@
 {
   "schema_version": 1,
   "id": "taob:barrel_block_standard",
-
   "type": "taob:container_block",
   "category": "containers",
   "container_type": "barrel",
   "size": "standard",
   "item_registry": "taob:barrel_blocks",
-
   "units": { "fluid": "mB" },
   "capacity": 30000,
-
-  "transfer": {
-    "bottle": 250,
-    "bucket": 1000
-  },
-
+  "transfer": { "bottle": 250, "bucket": 1000 },
   "fill_sound": "minecraft:item.bottle.fill",
   "empty_sound": "minecraft:item.bottle.empty",
   "drink_sound": "minecraft:entity.player.burp",
-
   "sounds": {
     "fill": { "id": "minecraft:item.bottle.fill", "volume": 1.0, "pitch": 1.0 },
     "empty": { "id": "minecraft:item.bottle.empty", "volume": 1.0, "pitch": 1.0 },
@@ -27,39 +19,29 @@
     "seal": { "id": "minecraft:block.barrel.close", "volume": 0.9, "pitch": 1.1 },
     "unseal": { "id": "minecraft:block.barrel.open", "volume": 0.9, "pitch": 1.0 }
   },
-
   "storage": {
     "persist": true,
-    "serialization": {
-      "nbt_key": "TaobContainer",
-      "fluid_key": "Fluid",
-      "amount_key": "Amount"
-    }
+    "serialization": { "nbt_key": "TaobContainer", "fluid_key": "Fluid", "amount_key": "Amount" }
   },
-
   "fluid_rules": {
     "allowed_fluid_tags": ["taob:storable_fluids"],
     "blocked_fluid_tags": ["taob:blocked_fluids"],
     "allow_mixing": false,
     "allow_empty": true
   },
-
   "settings": {
     "require_sneak_to_empty": true,
     "allow_partial_transfers": true,
     "cooldown_ticks": { "fill": 5, "empty": 5, "drink": 20 },
     "fail_behavior": "PASS",
-
     "sealed_by_default": false,
     "allow_seal": true,
     "allow_drink": true,
     "allow_fill_when_sealed": false,
     "allow_empty_when_sealed": false,
-
     "lockable": true,
     "owner_only_when_locked": true
   },
-
   "ui": {
     "show_capacity": true,
     "show_fluid": true,
@@ -83,7 +65,6 @@
       "toggle_lock"
     ]
   },
-
   "automation": {
     "allow_item_io": true,
     "allow_fluid_io": true,
@@ -96,11 +77,7 @@
       "west": "BOTH"
     }
   },
-
-  "redstone": {
-    "comparator_output": "FILL_LEVEL_0_15"
-  },
-
+  "redstone": { "comparator_output": "FILL_LEVEL_0_15" },
   "interaction": {
     "fill": {
       "amount": 250,
@@ -121,7 +98,6 @@
         { "type": "taob:fluid_level", "comparison": "GREATER_THAN", "value": 249 }
       ]
     },
-
     "fill_partial": {
       "amount": 250,
       "mode": "CLAMP",
@@ -141,7 +117,6 @@
         { "type": "taob:fluid_level", "comparison": "GREATER_THAN", "value": 0 }
       ]
     },
-
     "fill_all": {
       "amount": 30000,
       "mode": "ALL_OR_NOTHING",
@@ -160,7 +135,6 @@
         { "type": "taob:fluid_level", "comparison": "GREATER_THAN", "value": 29999 }
       ]
     },
-
     "draw_bucket": {
       "amount": 1000,
       "mode": "ALL_OR_NOTHING",
@@ -171,7 +145,6 @@
         { "type": "taob:fluid_level", "comparison": "GREATER_THAN", "value": 999 }
       ]
     },
-
     "draw_small_flask": {
       "amount": 250,
       "mode": "ALL_OR_NOTHING",
@@ -202,7 +175,6 @@
         { "type": "taob:fluid_level", "comparison": "GREATER_THAN", "value": 999 }
       ]
     },
-
     "drink": {
       "amount": 250,
       "mode": "ALL_OR_NOTHING",
@@ -212,13 +184,8 @@
         { "type": "taob:setting", "path": "settings.allow_drink", "value": true },
         { "type": "taob:fluid_level", "comparison": "GREATER_THAN", "value": 249 }
       ],
-      "effects": {
-        "hunger": 0,
-        "saturation": 0.0,
-        "status_effects": []
-      }
+      "effects": { "hunger": 0, "saturation": 0.0, "status_effects": [] }
     },
-
     "seal": {
       "mode": "TOGGLE_STATE",
       "state_key": "sealed",
@@ -235,7 +202,6 @@
       "requires_sneak": true,
       "conditions": [{ "type": "taob:setting", "path": "settings.allow_seal", "value": true }]
     },
-
     "toggle_lock": {
       "mode": "TOGGLE_STATE",
       "state_key": "locked",
