@@ -1,7 +1,13 @@
 from __future__ import annotations
 
 from tools.config import ensure_dirs, MOD
-from tools.generators.json_generator import BlockDef, Generator, ItemDef, recipe_shapeless, write_recipe
+from tools.generators.json_generator import (
+    BlockDef,
+    Generator,
+    ItemDef,
+    recipe_shapeless,
+    write_recipe,
+)
 
 ITEMS = [
     ItemDef(id="catnip", display_name="Catnip"),
@@ -12,6 +18,7 @@ ITEMS = [
 BLOCKS = [
     BlockDef(id="brewing_vat", display_name="Brewing Vat"),
 ]
+
 
 def main() -> None:
     ensure_dirs()
@@ -38,6 +45,7 @@ def main() -> None:
         count=1,
     )
     write_recipe("brewing_ingredient_from_herbs", r)
+
 
 if __name__ == "__main__":
     main()

@@ -3,6 +3,7 @@ from __future__ import annotations
 from tools.config import ensure_dirs, MOD, PATHS
 from tools.utils.json_utils import write_json
 
+
 def main() -> None:
     ensure_dirs()
 
@@ -15,11 +16,12 @@ def main() -> None:
     blockstate = {
         "variants": {
             "activated=false": {"model": f"{MOD.mod_id}:block/{block_id}"},
-            "activated=true":  {"model": f"{MOD.mod_id}:block/{block_id}_on"},
+            "activated=true": {"model": f"{MOD.mod_id}:block/{block_id}_on"},
         }
     }
 
     write_json(PATHS.blockstates / f"{block_id}.json", blockstate)
+
 
 if __name__ == "__main__":
     main()

@@ -3,6 +3,7 @@ from __future__ import annotations
 from tools.config import ensure_dirs, MOD
 from tools.generators.json_generator import recipe_shaped, write_recipe
 
+
 def main() -> None:
     ensure_dirs()
 
@@ -18,6 +19,7 @@ def main() -> None:
     )
 
     write_recipe("brewing_vat", r)
+
 
 if __name__ == "__main__":
     main()
