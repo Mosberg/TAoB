@@ -8,9 +8,9 @@
 
   "comment.taob.overlays.fluid_overlays": "Fluid Overlays.",
 
-  "fluid.taob.overlay.fluid.small_flask_fluid_overlay": "Small Flask Fluid Overlay",
-  "fluid.taob.overlay.fluid.medium_flask_fluid_overlay": "Medium Flask Fluid Overlay",
-  "fluid.taob.overlay.fluid.large_flask_fluid_overlay": "Large Flask Fluid Overlay",
+  "overlay.taob.fluid.small_flask_fluid_overlay": "Small Flask Fluid Overlay",
+  "overlay.taob.fluid.medium_flask_fluid_overlay": "Medium Flask Fluid Overlay",
+  "overlay.taob.fluid.large_flask_fluid_overlay": "Large Flask Fluid Overlay",
 
   "comment.taob.containers.fluid_containers": "Fluid Containers.",
 
