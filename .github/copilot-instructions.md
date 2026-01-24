@@ -6,6 +6,27 @@ Whitespace and formatting are for humans; treat every sentence here as a constra
 
 ---
 
+## Global Guidance for AI Agents
+
+- **Always use canonical references from `remote-index.md` for all file, folder, and API links.**
+- **Schema-first and datagen patterns are required for all new asset/data types.**
+- **Dynamic resource scanning and runtime registration are preferred for extensible content.**
+- **Config-driven features and settings must be supported and documented.**
+- **Agents are responsible for code, data, and documentation generation, including troubleshooting and escalation for ambiguous or novel tasks.**
+
+These instructions are tailored for AI coding agents working in this codebase. Follow these rules and patterns to maximize productivity and maintain project integrity.
+
+---
+
+## Remote Indexing & Canonical References
+
+- **Always use `remote-index.md` for all file/folder/API references.**
+  - This file is the single source of truth for canonical paths, cross-references, and authoritative links.
+- **Never edit auto-generated files** in `.github/javadocs/`, `.github/sources/`, or `remote-index.md` directly.
+  - If a reference is missing, escalate by opening an issue or requesting a maintainer update.
+
+---
+
 ## Project overview
 
 - This repository is a Minecraft: Java Edition _Fabric_ mod template targeting _Minecraft 1.21.11_, using _Fabric Loader 0.18.4_, _Fabric API 0.141.1+1.21.11_, _Yarn mappings 1.21.11+build.4_, _Loom 1.15-SNAPSHOT_, _Java 21_, and _Gradle 9.3.0_.

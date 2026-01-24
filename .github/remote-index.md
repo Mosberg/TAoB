@@ -148,3 +148,290 @@ This document provides a curated list of internal and external references useful
 - [Minecraft Wiki: Commands](https://minecraft.fandom.com/wiki/Commands)
 - [Minecraft Wiki: Redstone circuits](https://minecraft.fandom.com/wiki/Redstone_circuits)
 - [Minecraft Wiki: Java Edition version history](https://minecraft.fandom.com/wiki/Java_Edition_version_history)
+
+# Remote Index for Minecraft Java Edition version (1.21.11) Fabric Modding (Yarn + Fabric API)
+
+_A curated, annotated reference index optimized for VSCode + GitHub Copilot_
+
+<!--
+copilot:
+  document_role: "Canonical reference and guidance index for Minecraft Fabric modding."
+  primary_use:
+    - "Provide authoritative sources and patterns for code, data, and documentation generation."
+    - "Guide Copilot and LLMs toward correct Fabric/Yarn APIs, dynamic resource/config-driven modding, and extensibility."
+    - "Prevent hallucinated APIs by grounding suggestions in real docs and canonical project structure."
+  priorities:
+    - "Prefer Fabric docs > Javadocs > source bundles > Minecraft Wiki > Fandom."
+    - "Prefer datagen providers and schema-first patterns over manual JSON."
+    - "Prefer Yarn names over Mojang names."
+    - "Emphasize dynamic resource scanning, runtime registration, and config-driven features."
+  avoid:
+    - "Inventing APIs."
+    - "Using Forge or Bukkit patterns."
+    - "Using outdated MCP mappings."
+  style_guidance:
+    - "Generate idiomatic, extensible Fabric code."
+    - "Follow patterns from Fabric Example Mod and Fabric API."
+    - "Use modern Fabric API features (Data Attachments, Codecs, Registries, dynamic registration)."
+-->
+
+This index organizes all relevant documentation, Javadocs, sources, guides, and wiki references used during Fabric mod development. Each section includes **purpose**, **use_when**, **avoid**, and **examples** to ensure Copilot and LLMs generate accurate, extensible, and maintainable code.
+
+---
+
+## 1. Internal Javadocs
+
+<!--
+copilot:
+  purpose: "Use these links to understand method signatures, class hierarchies, and Yarn-mapped names."
+  use_when:
+    - "You need exact parameter types or return values."
+    - "You are generating code that interacts with Fabric Loader or Minecraft internals."
+    - "You need to avoid hallucinating nonexistent methods."
+  avoid:
+    - "Guessing APIs based on intuition."
+    - "Using outdated MCP or Mojang mappings."
+  examples:
+    - "When generating a BlockEntity, consult yarn javadoc for BlockEntityType."
+    - "When writing mixins, verify target method signatures here."
+-->
+
+- `fabric-loader-0.18.4-javadoc`
+- `yarn-1.21.11+build.4-javadoc`
+- `annotations-26.0.2-javadoc`
+- `gson-2.13.2-javadoc`
+- `junit-jupiter-6.0.2-javadoc`
+- `junit-platform-launcher-6.0.2-javadoc`
+- `slf4j-api-2.0.17-javadoc`
+
+---
+
+## 2. Internal Source Bundles
+
+<!--
+copilot:
+  purpose: "Use these sources to understand real implementation details and behavior."
+  use_when:
+    - "You need to see how Fabric API implements a feature."
+    - "You need to debug or extend Fabric internals."
+    - "You want to follow official coding patterns."
+  avoid:
+    - "Inventing behavior not present in the source."
+  examples:
+    - "Look at Fabric API's ItemGroup builder when generating custom creative tabs."
+    - "Check Fabric Loader internals when writing environment checks."
+-->
+
+- `fabric-api-0.141.2+1.21.11-sources`
+- `fabric-loader-0.18.4-sources`
+- `fabric-loom-1.15-SNAPSHOT-sources`
+- `annotations-26.0.2-sources`
+- `gson-2.13.2-sources`
+- `junit-jupiter-6.0.2-sources`
+- `junit-platform-launcher-6.0.2-sources`
+- `slf4j-api-2.0.17-sources`
+
+---
+
+## 3. External Maven Documentation
+
+<!--
+copilot:
+  purpose: "Use these as authoritative online API references."
+  use_when:
+    - "You need the latest published Javadocs."
+    - "You are generating Gradle build scripts."
+  avoid:
+    - "Using outdated Gradle DSL syntax."
+  examples:
+    - "Check Fabric API docs before generating event callback code."
+    - "Use Gradle DSL reference when writing custom tasks."
+-->
+
+- [Yarn mappings Maven Docs](https://maven.fabricmc.net/docs/yarn-1.21.11+build.4/)
+- [Fabric API Maven Docs](https://maven.fabricmc.net/docs/fabric-api-0.141.2+1.21.11/)
+- [Fabric Loader Maven Docs](https://maven.fabricmc.net/docs/fabric-loader-0.18.4/)
+- [Gradle Javadoc](https://docs.gradle.org/9.3.0/javadoc/)
+- [Gradle Build Language Reference](https://docs.gradle.org/9.3.0/dsl/)
+
+---
+
+## 4. Fabric Ecosystem Repositories
+
+<!--
+copilot:
+  purpose: "Use these repositories as canonical examples of Fabric modding patterns."
+  use_when:
+    - "You need idiomatic Fabric code."
+    - "You want to follow official conventions."
+  avoid:
+    - "Copying outdated patterns from random GitHub repos."
+  examples:
+    - "Use Fabric Example Mod as the baseline for mod initialization."
+    - "Use Fabric API repo to understand event registration."
+-->
+
+- [fabricmc.net site](https://github.com/FabricMC/fabricmc.net)
+- [Fabric API](https://github.com/FabricMC/fabric-api)
+- [Yarn mappings](https://github.com/FabricMC/yarn)
+- [Fabric Loader](https://github.com/FabricMC/fabric-loader)
+- [Fabric example mod](https://github.com/FabricMC/fabric-example-mod)
+- [Fabric Loom](https://github.com/FabricMC/fabric-loom)
+- [Fabric docs](https://github.com/FabricMC/fabric-docs)
+
+---
+
+## 5. Core Fabric Concepts
+
+### Saved Data / Data Attachments / Block Entities / Codecs / NBT
+
+<!--
+copilot:
+  purpose: "Use these guides when generating code involving persistent data, serialization, or world state."
+  use_when:
+    - "Creating block entities."
+    - "Saving custom world or player data."
+    - "Using Codecs for data-driven content."
+  avoid:
+    - "Using NBT directly when Codecs are preferred."
+  examples:
+    - "Generate a DataAttachment for storing per-player stats."
+    - "Use Codecs for custom registry entries."
+-->
+
+- [Fabric docs — saved data](https://docs.fabricmc.net/develop/saved-data)
+- [Fabric docs — data attachments](https://docs.fabricmc.net/develop/data-attachments)
+- [Fabric docs — block entities](https://docs.fabricmc.net/develop/blocks/block-entities/)
+- [Fabric docs — codecs](https://docs.fabricmc.net/develop/codecs/)
+- [Minecraft Wiki — NBT](https://minecraft.wiki/w/NBT_format)
+
+---
+
+## 6. Fabric Data Generation
+
+<!--
+copilot:
+  purpose: "Use datagen providers instead of writing JSON manually."
+  use_when:
+    - "Generating loot tables, recipes, tags, models, translations."
+    - "Creating large sets of assets."
+  avoid:
+    - "Producing raw JSON unless explicitly requested."
+  examples:
+    - "Generate a RecipeProvider for shaped crafting recipes."
+    - "Use ModelProvider for blockstate and model generation."
+-->
+
+- [Fabric docs — datagen setup](https://docs.fabricmc.net/develop/data-generation/setup)
+- [Datagen: advancements](https://docs.fabricmc.net/develop/data-generation/advancements)
+- [Datagen: loot tables](https://docs.fabricmc.net/develop/data-generation/loot-tables)
+- [Datagen: recipes](https://docs.fabricmc.net/develop/data-generation/recipes)
+- [Datagen: tags](https://docs.fabricmc.net/develop/data-generation/tags)
+- [Datagen: translations](https://docs.fabricmc.net/develop/data-generation/translations)
+- [Datagen: block models](https://docs.fabricmc.net/develop/data-generation/block-models)
+- [Datagen: item models](https://docs.fabricmc.net/develop/data-generation/item-models)
+
+---
+
+## 7. Fabric Developer Guides
+
+<!--
+copilot:
+  purpose: "Use these guides to ensure code follows Fabric best practices."
+  use_when:
+    - "Implementing items, blocks, entities, sounds, commands, rendering, networking."
+    - "Learning a new subsystem."
+  avoid:
+    - "Mixing Forge patterns with Fabric."
+  examples:
+    - "Follow the custom armor guide when generating ArmorItem subclasses."
+    - "Use the networking guide when writing client/server packet handlers."
+-->
+
+Covers items, blocks, entities, sounds, commands, rendering, networking, events, debugging, testing.
+
+---
+
+## 8. Official Minecraft Wiki
+
+<!--
+copilot:
+  purpose: "Use this for vanilla game mechanics, NBT structures, and behavior."
+  use_when:
+    - "You need canonical vanilla behavior."
+    - "You need NBT formats or block/item mechanics."
+  avoid:
+    - "Using Fandom wiki unless absolutely necessary."
+  examples:
+    - "Check loot table structure before generating a datagen provider."
+    - "Use vanilla block behavior as reference for custom blocks."
+-->
+
+Links to models, NBT, loot tables, advancements, recipes, tags, etc.
+
+---
+
+## 9. Legacy Fandom Wiki (fallback only)
+
+<!--
+copilot:
+  purpose: "Use only when minecraft.wiki lacks coverage."
+  use_when:
+    - "You need historical or obscure information."
+  avoid:
+    - "Treating Fandom as authoritative."
+-->
+
+---
+
+## 10. Dynamic Resource & Config-Driven Modding Patterns
+
+<!--
+copilot:
+  purpose: "Enable runtime extensibility and configuration-driven features for all mod content."
+  use_when:
+    - "Implementing dynamic registration of blocks, items, fluids, recipes, or tags."
+    - "Supporting modpacks or user-driven content extensions."
+    - "Loading content from resources or config at runtime."
+  avoid:
+    - "Hardcoding all content statically."
+    - "Ignoring config or resource-driven extensibility."
+  examples:
+    - "Scan resources/ for new block/item definitions and register at runtime."
+    - "Expose config options for mechanics, recipes, or features."
+    - "Allow new content to be added without code changes."
+-->
+
+- Use dynamic resource scanning and runtime registration for extensible content (blocks, items, fluids, recipes, tags, etc.).
+- Prefer config-driven mechanics and settings for all features and options.
+- Document all config keys, defaults, and extensibility points.
+- Use datagen and schema-first patterns for all new content types.
+
+---
+
+# Global Copilot Metadata Block
+
+To help Copilot understand the entire document:
+
+```md
+<!--
+copilot:
+  document_role: "Reference index for Minecraft Fabric modding."
+  primary_use:
+    - "Provide authoritative sources for code generation."
+    - "Guide Copilot toward correct Fabric/Yarn APIs."
+    - "Prevent hallucinated APIs by grounding suggestions in real docs."
+  priorities:
+    - "Prefer Fabric docs > Javadocs > source bundles > Minecraft Wiki > Fandom."
+    - "Prefer datagen providers over manual JSON."
+    - "Prefer Yarn names over Mojang names."
+  avoid:
+    - "Inventing APIs."
+    - "Using Forge or Bukkit patterns."
+    - "Using outdated MCP mappings."
+  style_guidance:
+    - "Generate idiomatic Fabric code."
+    - "Follow patterns from Fabric Example Mod."
+    - "Use modern Fabric API features (Data Attachments, Codecs, Registries)."
+-->
+```
