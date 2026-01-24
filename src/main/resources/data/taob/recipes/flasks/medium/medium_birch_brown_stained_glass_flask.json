@@ -1,0 +1,13 @@
+{
+  "category": "misc",
+  "key": {
+    "#": "#minecraft:brown_stained_glass",
+    "O": "#minecraft:birch_planks"
+  },
+  "pattern": [" O ", "# #", "####"],
+  "result": {
+    "count": 3,
+    "id": "taob:medium_birch_brown_stained_glass_flask"
+  },
+  "type": "minecraft:crafting_shaped"
+}

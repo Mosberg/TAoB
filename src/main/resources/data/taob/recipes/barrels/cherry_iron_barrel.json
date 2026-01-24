@@ -1,0 +1,14 @@
+{
+  "category": "misc",
+  "key": {
+    "I": "#minecraft:iron_ingot",
+    "P": "#minecraft:cherry_planks",
+    "S": "#minecraft:cherry_slab"
+  },
+  "pattern": ["PSP", "I I", "PSP"],
+  "result": {
+    "count": 1,
+    "id": "taob:cherry_iron_barrel"
+  },
+  "type": "minecraft:crafting_shaped"
+}

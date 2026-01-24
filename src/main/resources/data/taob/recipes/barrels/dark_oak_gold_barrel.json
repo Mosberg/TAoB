@@ -1,0 +1,14 @@
+{
+  "category": "misc",
+  "key": {
+    "I": "#minecraft:oak_gold_ingot",
+    "P": "#minecraft:dark_planks",
+    "S": "#minecraft:dark_slab"
+  },
+  "pattern": ["PSP", "I I", "PSP"],
+  "result": {
+    "count": 1,
+    "id": "taob:dark_oak_gold_barrel"
+  },
+  "type": "minecraft:crafting_shaped"
+}

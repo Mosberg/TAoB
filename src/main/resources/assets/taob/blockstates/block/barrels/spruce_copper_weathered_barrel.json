@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "taob:block/barrels/spruce_copper_weathered_barrel",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "taob:block/barrels/spruce_copper_weathered_barrel",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "taob:block/barrels/spruce_copper_weathered_barrel",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "taob:block/barrels/spruce_copper_weathered_barrel",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "taob:block/barrels/spruce_copper_weathered_barrel"
+    },
+    "facing=west": {
+      "model": "taob:block/barrels/spruce_copper_weathered_barrel",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

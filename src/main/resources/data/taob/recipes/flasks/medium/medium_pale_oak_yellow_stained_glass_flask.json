@@ -1,0 +1,13 @@
+{
+  "category": "misc",
+  "key": {
+    "#": "#minecraft:oak_yellow_stained_glass",
+    "O": "#minecraft:pale_planks"
+  },
+  "pattern": [" O ", "# #", "####"],
+  "result": {
+    "count": 3,
+    "id": "taob:medium_pale_oak_yellow_stained_glass_flask"
+  },
+  "type": "minecraft:crafting_shaped"
+}

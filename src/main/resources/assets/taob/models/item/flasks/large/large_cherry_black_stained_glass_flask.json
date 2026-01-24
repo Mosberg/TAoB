@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "taob:item/flasks/large/large_cherry_black_stained_glass_flask",
+    "layer1": "taob:overlay/fluid/large_flask_fluid_overlay"
+  }
+}

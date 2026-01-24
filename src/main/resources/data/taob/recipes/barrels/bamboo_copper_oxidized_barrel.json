@@ -1,0 +1,14 @@
+{
+  "category": "misc",
+  "key": {
+    "I": "#minecraft:copper_oxidized_ingot",
+    "P": "#minecraft:bamboo_planks",
+    "S": "#minecraft:bamboo_slab"
+  },
+  "pattern": ["PSP", "I I", "PSP"],
+  "result": {
+    "count": 1,
+    "id": "taob:bamboo_copper_oxidized_barrel"
+  },
+  "type": "minecraft:crafting_shaped"
+}

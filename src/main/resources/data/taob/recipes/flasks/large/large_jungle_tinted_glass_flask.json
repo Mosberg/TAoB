@@ -1,0 +1,13 @@
+{
+  "category": "misc",
+  "key": {
+    "#": "#minecraft:tinted_glass",
+    "O": "#minecraft:jungle_planks"
+  },
+  "pattern": ["#O#", "# #", "####"],
+  "result": {
+    "count": 3,
+    "id": "taob:large_jungle_tinted_glass_flask"
+  },
+  "type": "minecraft:crafting_shaped"
+}

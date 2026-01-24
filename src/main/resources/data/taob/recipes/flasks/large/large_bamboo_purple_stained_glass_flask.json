@@ -1,0 +1,13 @@
+{
+  "category": "misc",
+  "key": {
+    "#": "#minecraft:purple_stained_glass",
+    "O": "#minecraft:bamboo_planks"
+  },
+  "pattern": ["#O#", "# #", "####"],
+  "result": {
+    "count": 3,
+    "id": "taob:large_bamboo_purple_stained_glass_flask"
+  },
+  "type": "minecraft:crafting_shaped"
+}

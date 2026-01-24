@@ -1,0 +1,14 @@
+{
+  "category": "misc",
+  "key": {
+    "I": "#minecraft:copper_weathered_ingot",
+    "P": "#minecraft:crimson_planks",
+    "S": "#minecraft:crimson_slab"
+  },
+  "pattern": ["PSP", "I I", "PSP"],
+  "result": {
+    "count": 1,
+    "id": "taob:crimson_copper_weathered_barrel"
+  },
+  "type": "minecraft:crafting_shaped"
+}

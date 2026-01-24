@@ -1,0 +1,14 @@
+{
+  "category": "misc",
+  "key": {
+    "I": "#minecraft:gold_ingot",
+    "P": "#minecraft:spruce_planks",
+    "S": "#minecraft:spruce_slab"
+  },
+  "pattern": ["PSP", "I I", "PSP"],
+  "result": {
+    "count": 1,
+    "id": "taob:spruce_gold_barrel"
+  },
+  "type": "minecraft:crafting_shaped"
+}

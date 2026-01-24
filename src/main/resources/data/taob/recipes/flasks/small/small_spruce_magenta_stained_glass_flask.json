@@ -1,0 +1,13 @@
+{
+  "category": "misc",
+  "key": {
+    "#": "#minecraft:magenta_stained_glass",
+    "O": "#minecraft:spruce_planks"
+  },
+  "pattern": [" O ", "# #", " # "],
+  "result": {
+    "count": 3,
+    "id": "taob:small_spruce_magenta_stained_glass_flask"
+  },
+  "type": "minecraft:crafting_shaped"
+}

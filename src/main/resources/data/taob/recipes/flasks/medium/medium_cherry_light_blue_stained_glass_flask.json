@@ -1,0 +1,13 @@
+{
+  "category": "misc",
+  "key": {
+    "#": "#minecraft:light_blue_stained_glass",
+    "O": "#minecraft:cherry_planks"
+  },
+  "pattern": [" O ", "# #", "####"],
+  "result": {
+    "count": 3,
+    "id": "taob:medium_cherry_light_blue_stained_glass_flask"
+  },
+  "type": "minecraft:crafting_shaped"
+}

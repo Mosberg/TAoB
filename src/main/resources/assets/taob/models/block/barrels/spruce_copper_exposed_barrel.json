@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "taob:block/barrels/spruce_barrel_bottom",
+    "side": "taob:block/barrels/spruce_copper_exposed_barrel_side",
+    "top": "taob:block/barrels/spruce_barrel_top"
+  }
+}

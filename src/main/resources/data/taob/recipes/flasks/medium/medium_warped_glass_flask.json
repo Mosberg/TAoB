@@ -1,0 +1,13 @@
+{
+  "category": "misc",
+  "key": {
+    "#": "#minecraft:glass",
+    "O": "#minecraft:warped_planks"
+  },
+  "pattern": [" O ", "# #", "####"],
+  "result": {
+    "count": 3,
+    "id": "taob:medium_warped_glass_flask"
+  },
+  "type": "minecraft:crafting_shaped"
+}

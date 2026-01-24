@@ -1,0 +1,13 @@
+{
+  "category": "misc",
+  "key": {
+    "#": "#minecraft:glass",
+    "O": "#minecraft:jungle_planks"
+  },
+  "pattern": [" O ", "# #", "####"],
+  "result": {
+    "count": 3,
+    "id": "taob:medium_jungle_glass_flask"
+  },
+  "type": "minecraft:crafting_shaped"
+}

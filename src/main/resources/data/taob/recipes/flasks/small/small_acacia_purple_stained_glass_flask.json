@@ -1,0 +1,13 @@
+{
+  "category": "misc",
+  "key": {
+    "#": "#minecraft:purple_stained_glass",
+    "O": "#minecraft:acacia_planks"
+  },
+  "pattern": [" O ", "# #", " # "],
+  "result": {
+    "count": 3,
+    "id": "taob:small_acacia_purple_stained_glass_flask"
+  },
+  "type": "minecraft:crafting_shaped"
+}

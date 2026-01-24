@@ -1,0 +1,14 @@
+{
+  "category": "misc",
+  "key": {
+    "I": "#minecraft:gold_ingot",
+    "P": "#minecraft:jungle_planks",
+    "S": "#minecraft:jungle_slab"
+  },
+  "pattern": ["PSP", "I I", "PSP"],
+  "result": {
+    "count": 1,
+    "id": "taob:jungle_gold_barrel"
+  },
+  "type": "minecraft:crafting_shaped"
+}

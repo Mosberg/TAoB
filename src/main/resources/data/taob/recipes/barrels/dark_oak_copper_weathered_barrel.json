@@ -1,0 +1,14 @@
+{
+  "category": "misc",
+  "key": {
+    "I": "#minecraft:oak_copper_weathered_ingot",
+    "P": "#minecraft:dark_planks",
+    "S": "#minecraft:dark_slab"
+  },
+  "pattern": ["PSP", "I I", "PSP"],
+  "result": {
+    "count": 1,
+    "id": "taob:dark_oak_copper_weathered_barrel"
+  },
+  "type": "minecraft:crafting_shaped"
+}
