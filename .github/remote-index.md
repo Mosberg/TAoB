@@ -5,7 +5,7 @@ This document provides a curated list of internal and external references useful
 ## Internal references
 
 - [Yarn 1.21.11+build.4 Javadoc](javadocs/yarn-1.21.11+build.4-javadoc)
-- [Fabric API 0.141.1+1.21.11 FatJavadoc](javadocs/fabric-api-0.141.1+1.21.11-fatjavadoc)
+- [Fabric API 0.141.2+1.21.11 FatJavadoc](javadocs/fabric-api-0.141.2+1.21.11-fatjavadoc)
 - [Fabric Loader 0.18.4 Javadoc](javadocs/fabric-loader-0.18.4-javadoc)
 
 - [Gson 2.13.2 Javadoc](javadocs/gson-2.13.2-javadoc)
@@ -16,7 +16,7 @@ This document provides a curated list of internal and external references useful
 ## External references
 
 - [Yarn mappings Maven Docs](https://maven.fabricmc.net/docs/yarn-1.21.11+build.4/)
-- [Fabric API Maven Docs](https://maven.fabricmc.net/docs/fabric-api-0.141.1+1.21.11/)
+- [Fabric API Maven Docs](https://maven.fabricmc.net/docs/fabric-api-0.141.2+1.21.11/)
 - [Fabric Loader Maven Docs](https://maven.fabricmc.net/docs/fabric-loader-0.18.4/)
 - [Gradle Javadoc](https://docs.gradle.org/9.3.0/javadoc/)
 - [Gradle Build Language Reference](https://docs.gradle.org/9.3.0/dsl/)

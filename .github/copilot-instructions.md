@@ -29,7 +29,7 @@ These instructions are tailored for AI coding agents working in this codebase. F
 
 ## Project overview
 
-- This repository is a Minecraft: Java Edition _Fabric_ mod template targeting _Minecraft 1.21.11_, using _Fabric Loader 0.18.4_, _Fabric API 0.141.1+1.21.11_, _Yarn mappings 1.21.11+build.4_, _Loom 1.15-SNAPSHOT_, _Java 21_, and _Gradle 9.3.0_.
+- This repository is a Minecraft: Java Edition _Fabric_ mod template targeting _Minecraft 1.21.11_, using _Fabric Loader 0.18.4_, _Fabric API 0.141.2+1.21.11_, _Yarn mappings 1.21.11+build.4_, _Loom 1.15-SNAPSHOT_, _Java 21_, and _Gradle 9.3.0_.
 - The mod uses a _split-source_ structure (main, client, test, datagen, etc.) and is designed for _Yarn-named Fabric development_ with clear separation between API, implementation, and data-driven content.
 - Development is done primarily in _VS Code_ with the Gradle and Java tooling; Copilot should assume VS Code as the default IDE workflow.
 - The codebase is organized by environment (client/main/test) and follows conventions typical for Fabric modding, but with custom structure and workflows. See below for details.
@@ -66,7 +66,7 @@ Always assume and respect the following versions unless the build files show dif
 
 - _Minecraft_: 1.21.11
 - _Fabric Loader_: 0.18.4
-- _Fabric API_: 0.141.1+1.21.11
+- _Fabric API_: 0.141.2+1.21.11
 - _Yarn mappings_: 1.21.11+build.4
 - _Loom_: 1.15-SNAPSHOT
 - _Java_: 21
