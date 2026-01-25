@@ -23,7 +23,7 @@ public class BreweryLogbookItem extends Item {
     public ActionResult useOnBlock(ItemUsageContext context) {
         PlayerEntity player = context.getPlayer();
         World world = context.getWorld();
-        if (!world.isClient && player instanceof ServerPlayerEntity serverPlayer) {
+        if (!world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
             Set<String> unlocked = BrewingUnlockTracker.getUnlocked(serverPlayer);
             if (unlocked.isEmpty()) {
                 player.sendMessage(Text.translatable("item.taob.brewery_logbook.empty"), false);

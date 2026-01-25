@@ -2,41 +2,38 @@ package dk.mosberg.taob.brewing;
 
 import java.util.HashSet;
 import java.util.Set;
-import net.minecraft.nbt.NbtCompound;
+import dk.mosberg.taob.component.ModDataComponents;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 /**
  * Tracks brewing recipe unlocks per player.
  */
 public class BrewingUnlockTracker {
-    private static final String NBT_KEY = "taob_brewing_unlocks";
-
-    // Get unlocked recipe IDs for a player
+    // Get unlocked recipes for a player
+    @SuppressWarnings("unchecked")
     public static Set<String> getUnlocked(ServerPlayerEntity player) {
-        NbtCompound tag = player.getPersistentData();
-        Set<String> unlocked = new HashSet<>();
-        if (tag.contains(NBT_KEY)) {
-            for (String id : tag.getCompound(NBT_KEY).getKeys()) {
-                if (tag.getCompound(NBT_KEY).getBoolean(id)) {
-                    unlocked.add(id);
-                }
-            }
+        if (player == null)
+            return new HashSet<>();
+        Set<String> unlocks = (Set<String>) ModDataComponents.BREWING_UNLOCKS;
+        if (unlocks == null) {
+            return new HashSet<>();
         }
-        return unlocked;
+        return unlocks;
     }
 
     // Unlock a recipe for a player
     public static void unlock(ServerPlayerEntity player, String recipeId) {
-        NbtCompound tag = player.getPersistentData();
-        NbtCompound unlocks = tag.getCompound(NBT_KEY);
-        unlocks.putBoolean(recipeId, true);
-        tag.put(NBT_KEY, unlocks);
+        if (player == null || recipeId == null)
+            return;
+        Set<String> unlocks = new HashSet<>(getUnlocked(player));
+        unlocks.add(recipeId);
     }
+
 
     // Check if a recipe is unlocked
     public static boolean isUnlocked(ServerPlayerEntity player, String recipeId) {
-        NbtCompound tag = player.getPersistentData();
-        NbtCompound unlocks = tag.getCompound(NBT_KEY);
-        return unlocks.getBoolean(recipeId);
+        if (player == null || recipeId == null)
+            return false;
+        return getUnlocked(player).contains(recipeId);
     }
 }

@@ -1,5 +1,6 @@
 package dk.mosberg.taob.item;
 
+import dk.mosberg.taob.TAoB;
 import dk.mosberg.taob.component.ModDataComponents;
 import net.minecraft.item.Item;
 
@@ -45,7 +46,7 @@ public class SmallFlaskItem extends Item {
     public boolean tryMixWith(SmallFlaskItem other) {
         var myFluid = this.getFluidContent();
         var otherFluid = other.getFluidContent();
-        String result = dk.mosberg.taob.TAoB.getFluidMixResult(myFluid.fluidType, myFluid.amount,
+        String result = TAoB.getFluidMixResult(myFluid.fluidType, myFluid.amount,
                 otherFluid.fluidType, otherFluid.amount);
         if (result != null) {
             // For simplicity, set to result, sum amounts, reset age/stage

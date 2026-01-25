@@ -1,10 +1,7 @@
----
-## Fast Class Search in VS Code
+# Copilot Instructions – The Art of Brewing (TAoB) Fabric Mod
 
-To quickly search for classes in this codebase using VS Code:
-  - Press `Ctrl+P` (or `Cmd+P` on Mac), then type `#` followed by the class name (e.g., `#NbtCompound`, `#NbtCompoundArgumentType`).
-  - This will instantly locate Java classes, interfaces, and other symbols for rapid navigation and inspection.
-  - Use this for exploring Minecraft/Fabric API classes, mod source, or generated code.
+These instructions are for AI coding agents working in the TAoB codebase (Minecraft: Java Edition, Fabric 1.21.11, Yarn mappings, Java 21, Gradle 9.3.0). They focus on dynamic, schema-driven, and resource-driven mod development.
+
 ---
 
 ## Project Metadata (for AI agents)
@@ -34,10 +31,6 @@ slf4j_version=2.0.17
 annotations_version=26.0.2
 
 junit_version=6.0.2
-
-# Copilot Instructions – The Art of Brewing (TAoB) Fabric Mod
-
-These instructions are for AI coding agents working in the TAoB codebase (Minecraft: Java Edition, Fabric 1.21.11, Yarn mappings, Java 21, Gradle 9.3.0). They focus on dynamic, schema-driven, and resource-driven mod development.
 
 ---
 

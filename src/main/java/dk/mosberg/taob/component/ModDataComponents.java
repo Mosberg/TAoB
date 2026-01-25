@@ -1,5 +1,6 @@
 package dk.mosberg.taob.component;
 
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.nbt.NbtCompound;
 
 /**
@@ -52,4 +53,7 @@ public class ModDataComponents {
             return new FluidContent(fluidType, amount, maxAmount, age, stage);
         }
     }
+
+    public static DataComponentTypes BREWING_UNLOCKS;
+
 }

@@ -23,6 +23,7 @@ public class ModMechanics {
     private static AgingConfig agingConfig = new AgingConfig();
 
     // Loads mechanics from a JSON file (now supports aging config)
+    @SuppressWarnings("null")
     public static void loadMechanics(String filePath) {
         try (FileReader reader = new FileReader(filePath)) {
             Gson gson = new Gson();

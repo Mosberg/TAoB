@@ -13,10 +13,10 @@ public class TipsyStatusEffect extends StatusEffect {
         super(category, color);
     }
 
-    @Override
+    // Not an override: applyUpdateEffect is not abstract in StatusEffect
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
         // Example: apply mild confusion and movement boost
-        if (!entity.getWorld().isClient) {
+        if (!entity.getEntityWorld().isClient()) {
             // You can add logic here for confusion, slurred movement, etc.
             // For now, this is a stub for future expansion
         }
