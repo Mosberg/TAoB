@@ -1,0 +1,14 @@
+{
+  "$schema": "../../../../schemas/fluid_mix.schema.json",
+  "$id": "taob:elderflower_spritz",
+  "title": "Elderflower Spritz Mix",
+  "description": "A refreshing mix of elderflower wine and apple cider.",
+  "alcohol_type": "wine",
+  "inputA": "taob:elderflower_wine",
+  "inputB": "taob:apple_cider",
+  "result": "taob:spritz",
+  "conditions": {
+    "minA": 100,
+    "minB": 100
+  }
+}

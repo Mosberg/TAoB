@@ -1,0 +1,11 @@
+{
+  "$schema": "../../../../schemas/brewing_unlockable_recipe.schema.json",
+  "$id": "taob:elderflower_wine_recipe",
+  "title": "Elderflower Wine Brewing Recipe",
+  "description": "Unlocks the recipe for brewing Elderflower Wine.",
+  "unlock_criteria": [
+    { "type": "discover_ingredient", "ingredient": "taob:elderflower" },
+    { "type": "discover_ingredient", "ingredient": "taob:yeast" }
+  ],
+  "result": "taob:elderflower_wine"
+}

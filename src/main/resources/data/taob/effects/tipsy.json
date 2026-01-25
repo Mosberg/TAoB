@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../../schemas/status_effect.schema.json",
+  "name": "Tipsy",
+  "id": "taob:tipsy",
+  "category": "neutral",
+  "color": "#E0C97F",
+  "description": "You feel a little lightheaded. Movement is slightly erratic.",
+  "effects": [
+    { "type": "confusion", "amplifier": 0, "duration": 100 },
+    { "type": "speed", "amplifier": 0, "duration": 100 }
+  ]
+}

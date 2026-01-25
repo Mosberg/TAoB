@@ -11,5 +11,13 @@ package dk.mosberg.taob.config;
  * </p>
  */
 public class ModOptions {
-    // TODO: Implement user-facing options.
+    // Example: user-facing toggles
+    public static boolean overlaysEnabled = true;
+    public static boolean showFluidAmounts = true;
+    public static boolean enablePotencyColors = true;
+
+    public static void loadOptions(String filePath) {
+        // Stub: load options from config file
+        System.out.println("Loading options from: " + filePath);
+    }
 }

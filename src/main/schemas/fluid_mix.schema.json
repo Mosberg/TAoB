@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "fluid_mix.schema.json",
+  "title": "Fluid Mix Recipe",
+  "description": "Defines a recipe for mixing two fluids to produce a new result.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "../../../../schemas/fluid_mix.schema.json"
+    },
+    "$id": {
+      "type": "string",
+      "description": "Unique identifier for the fluid mix recipe."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for the fluid mix recipe."
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the fluid mix recipe."
+    },
+    "alcohol_type": {
+      "type": "string",
+      "description": "Type of alcohol produced, if applicable."
+    },
+    "inputA": {
+      "type": "string",
+      "description": "The first fluid's identifier (namespace:id)."
+    },
+    "inputB": {
+      "type": "string",
+      "description": "The second fluid's identifier (namespace:id)."
+    },
+    "result": {
+      "type": "string",
+      "description": "The resulting fluid's identifier (namespace:id)."
+    },
+    "conditions": {
+      "type": "object",
+      "description": "Optional conditions for the mix (e.g., minimum amounts).",
+      "properties": {
+        "minA": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Minimum amount of inputA required."
+        },
+        "minB": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Minimum amount of inputB required."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "$schema",
+    "$id",
+    "title",
+    "description",
+    "alcohol_type",
+    "inputA",
+    "inputB",
+    "result"
+  ],
+  "additionalProperties": false
+}

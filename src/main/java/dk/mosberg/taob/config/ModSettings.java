@@ -11,5 +11,13 @@ package dk.mosberg.taob.config;
  * </p>
  */
 public class ModSettings {
-    // TODO: Implement persistent settings.
+    // Example: persistent unlocked recipes and user settings
+    public static java.util.Set<String> unlockedRecipes = new java.util.HashSet<>();
+    public static int lastAlcoholPotency = 0;
+    public static String lastUsedFlask = "";
+
+    public static void loadSettings(String filePath) {
+        // Stub: load settings from file
+        System.out.println("Loading settings from: " + filePath);
+    }
 }

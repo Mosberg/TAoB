@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "brewing_unlockable_recipe.schema.json",
+  "title": "Brewing Unlockable Recipe",
+  "description": "Defines a brewing recipe that can be unlocked by player actions or discoveries.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "../../../../schemas/brewing_unlockable_recipe.schema.json"
+    },
+    "$id": {
+      "type": "string",
+      "description": "Unique identifier for the recipe."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for the recipe."
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the recipe."
+    },
+    "ingredients": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of ingredient item IDs required for the recipe.",
+      "minItems": 1
+    },
+    "unlock_criteria": {
+      "type": "array",
+      "description": "Criteria required to unlock this recipe.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of unlock criterion (e.g., 'discover_ingredient')."
+          },
+          "ingredient": {
+            "type": "string",
+            "description": "Ingredient ID required for this criterion."
+          }
+        },
+        "required": ["type", "ingredient"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "result": {
+      "type": "string",
+      "description": "The resulting item/fluid ID produced by this recipe."
+    }
+  },
+  "required": ["$schema", "$id", "title", "description", "unlock_criteria", "result"],
+  "additionalProperties": false
+}
