@@ -1,13 +1,8 @@
-
-
-
 package dk.mosberg.taob.item;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import dk.mosberg.taob.component.ModDataComponents;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
 
 /**
  * Base class for dynamically registered barrel items.
@@ -16,10 +11,14 @@ public class BarrelItem extends BlockItem {
     private final String woodType;
     private final String metalType;
 
+    // Fluid content for this item instance
+    private ModDataComponents.FluidContent fluidContent;
+
     public BarrelItem(Block block, Settings settings, String woodType, String metalType) {
         super(block, settings);
         this.woodType = woodType;
         this.metalType = metalType;
+        this.fluidContent = new ModDataComponents.FluidContent("", 0, 0, 0, 0);
     }
 
     public String getWoodType() {
@@ -30,11 +29,13 @@ public class BarrelItem extends BlockItem {
         return metalType;
     }
 
-    // Registry for all dynamically created barrel items
-    public static final Map<Identifier, BarrelItem> BARREL_ITEMS = new LinkedHashMap<>();
-
-    public static void register(Identifier id, BarrelItem item) {
-        BARREL_ITEMS.put(id, item);
-        // Registration with Fabric/MC registry should be handled elsewhere
+    public ModDataComponents.FluidContent getFluidContent() {
+        return fluidContent;
     }
+
+    public void setFluidContent(ModDataComponents.FluidContent content) {
+        this.fluidContent = content;
+    }
+
+    // No static registry; use DynamicRegistry for registration
 }

@@ -1,12 +1,7 @@
-
-
-
 package dk.mosberg.taob.item;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import dk.mosberg.taob.component.ModDataComponents;
 import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
 
 /**
  * Base class for dynamically registered large flask items.
@@ -15,10 +10,14 @@ public class LargeFlaskItem extends Item {
     private final String woodType;
     private final String color;
 
+    // Fluid content for this item instance
+    private ModDataComponents.FluidContent fluidContent;
+
     public LargeFlaskItem(Settings settings, String woodType, String color) {
         super(settings);
         this.woodType = woodType;
         this.color = color;
+        this.fluidContent = new ModDataComponents.FluidContent("", 0, 0, 0, 0);
     }
 
     public String getWoodType() {
@@ -29,10 +28,13 @@ public class LargeFlaskItem extends Item {
         return color;
     }
 
-    public static final Map<Identifier, LargeFlaskItem> LARGE_FLASK_ITEMS = new LinkedHashMap<>();
-
-    public static void register(Identifier id, LargeFlaskItem item) {
-        LARGE_FLASK_ITEMS.put(id, item);
-        // Registration with Fabric/MC registry should be handled elsewhere
+    public ModDataComponents.FluidContent getFluidContent() {
+        return fluidContent;
     }
+
+    public void setFluidContent(ModDataComponents.FluidContent content) {
+        this.fluidContent = content;
+    }
+
+    // No static registry; use DynamicRegistry for registration
 }
