@@ -2,6 +2,6 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "taob:item/flasks/small/small_pale_oak_purple_stained_glass_flask",
-    "layer1": "taob:overlay/fluid/small_flask_fluid_overlay"
+    "layer1": "taob:gui/small_flask_fluid_overlay"
   }
 }

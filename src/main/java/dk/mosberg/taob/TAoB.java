@@ -1,10 +1,10 @@
 package dk.mosberg.taob;
 
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.google.common.io.Files;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import dk.mosberg.taob.block.BarrelBlock;
@@ -20,6 +20,7 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
+
 
 public class TAoB implements ModInitializer {
     public static final String MOD_ID = "taob";
@@ -42,16 +43,21 @@ public class TAoB implements ModInitializer {
         // TODO: Register with Fabric/MC registry
     });
 
+    private final dk.mosberg.taob.util.FluidPropertiesLoader FLUID_PROPERTIES =
+            new dk.mosberg.taob.util.FluidPropertiesLoader();
+
     @Override
     public void onInitialize() {
         LOGGER.info("Initializing The Art of Brewing...");
         scanAndRegisterContainers();
         scanAndRegisterRecipes();
         loadFluidProperties();
-        private void loadFluidProperties() {
-            var fluidDir = java.nio.file.Paths.get("src/main/resources/data/taob/alcohol_fluid_properties");
-            FLUID_PROPERTIES.loadFluidProperties(fluidDir);
-        }
+    }
+
+    private void loadFluidProperties() {
+        var fluidDir =
+                java.nio.file.Paths.get("src/main/resources/data/taob/alcohol_fluid_properties");
+        FLUID_PROPERTIES.loadFluidProperties(fluidDir);
     }
 
 
@@ -64,7 +70,7 @@ public class TAoB implements ModInitializer {
                 try (var reader = Files.newBufferedReader(path)) {
                     JsonObject obj = JsonParser.parseReader(reader).getAsJsonObject();
                     String idStr = obj.get("id").getAsString();
-                    Identifier id = new Identifier(idStr);
+                    Identifier id = Identifier.of(idStr);
                     String type = obj.get("type").getAsString();
                     if ("taob:container_block".equals(type)) {
                         BarrelBlock block = new BarrelBlock(Block.Settings.create(),
@@ -121,7 +127,7 @@ public class TAoB implements ModInitializer {
             List<String> barrelIds =
                     TagLoader.loadIds("src/main/resources/data/taob/tags/barrels.json");
             for (String idStr : barrelIds) {
-                Identifier id = new Identifier(idStr);
+                Identifier id = Identifier.of(idStr);
                 String recipePath =
                         "src/main/resources/data/taob/recipes/barrels/" + id.getPath() + ".json";
                 RecipeRegistrar.registerRecipe(recipePath);
@@ -129,7 +135,7 @@ public class TAoB implements ModInitializer {
             List<String> largeFlaskIds =
                     TagLoader.loadIds("src/main/resources/data/taob/tags/large_flasks.json");
             for (String idStr : largeFlaskIds) {
-                Identifier id = new Identifier(idStr);
+                Identifier id = Identifier.of(idStr);
                 String recipePath = "src/main/resources/data/taob/recipes/flasks/large/"
                         + id.getPath() + ".json";
                 RecipeRegistrar.registerRecipe(recipePath);
@@ -137,7 +143,7 @@ public class TAoB implements ModInitializer {
             List<String> mediumFlaskIds =
                     TagLoader.loadIds("src/main/resources/data/taob/tags/medium_flasks.json");
             for (String idStr : mediumFlaskIds) {
-                Identifier id = new Identifier(idStr);
+                Identifier id = Identifier.of(idStr);
                 String recipePath = "src/main/resources/data/taob/recipes/flasks/medium/"
                         + id.getPath() + ".json";
                 RecipeRegistrar.registerRecipe(recipePath);
@@ -145,7 +151,7 @@ public class TAoB implements ModInitializer {
             List<String> smallFlaskIds =
                     TagLoader.loadIds("src/main/resources/data/taob/tags/small_flasks.json");
             for (String idStr : smallFlaskIds) {
-                Identifier id = new Identifier(idStr);
+                Identifier id = Identifier.of(idStr);
                 String recipePath = "src/main/resources/data/taob/recipes/flasks/small/"
                         + id.getPath() + ".json";
                 RecipeRegistrar.registerRecipe(recipePath);

@@ -44,11 +44,11 @@ public class ModDataComponents {
         }
 
         public static FluidContent fromNbt(NbtCompound nbt) {
-            String fluidType = nbt.getString("fluidType");
-            int amount = nbt.getInt("amount");
-            int maxAmount = nbt.getInt("maxAmount");
-            int age = nbt.getInt("age");
-            int stage = nbt.getInt("stage");
+            String fluidType = nbt.getString("fluidType", "");
+            int amount = nbt.getInt("amount", 0);
+            int maxAmount = nbt.getInt("maxAmount", 0);
+            int age = nbt.getInt("age", 0);
+            int stage = nbt.getInt("stage", 0);
             return new FluidContent(fluidType, amount, maxAmount, age, stage);
         }
     }
