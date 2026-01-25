@@ -1,0 +1,7 @@
+{
+  "id": "taob:brewery_logbook",
+  "type": "taob:container_item",
+  "container_type": "logbook",
+  "display_name": "Brewery Logbook",
+  "max_count": 1
+}

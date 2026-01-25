@@ -86,7 +86,6 @@ public class TAoB implements ModInitializer {
     @Override
     public void onInitialize() {
         loadFluidMixRecipes();
-        registerLogbookItem();
         loadUnlockableBrewingRecipes();
         registerStatusEffects();
         registerItemGroups();
@@ -187,10 +186,11 @@ public class TAoB implements ModInitializer {
 
     @SuppressWarnings("null")
     private void registerLogbookItem() {
-        BREWERY_LOGBOOK_ITEM =
-                new dk.mosberg.taob.item.BreweryLogbookItem(new Item.Settings().maxCount(1));
-        net.minecraft.registry.Registry.register(net.minecraft.registry.Registries.ITEM,
-                Identifier.of(MOD_ID, "brewery_logbook"), BREWERY_LOGBOOK_ITEM);
+        // Register the item first, then assign the static field
+        Item logbook = net.minecraft.registry.Registry.register(
+                net.minecraft.registry.Registries.ITEM, Identifier.of(MOD_ID, "brewery_logbook"),
+                new dk.mosberg.taob.item.BreweryLogbookItem(new Item.Settings().maxCount(1)));
+        BREWERY_LOGBOOK_ITEM = logbook;
         // Add to barrels creative tab for now
         net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents.modifyEntriesEvent(BARRELS_GROUP_KEY)
                 .register(entries -> entries.add(BREWERY_LOGBOOK_ITEM));
@@ -347,6 +347,17 @@ public class TAoB implements ModInitializer {
                                 SMALL_FLASK_REGISTRY.register(id.toString(), item);
                                 LOGGER.info("Registered small flask: {}", id);
                             }
+                        } else if ("logbook".equals(containerType)) {
+                            dk.mosberg.taob.item.BreweryLogbookItem item =
+                                    new dk.mosberg.taob.item.BreweryLogbookItem(
+                                            new Item.Settings().maxCount(obj.has("max_count")
+                                                    ? obj.get("max_count").getAsInt()
+                                                    : 1));
+                            // Register to MC registry and assign static field
+                            Item registered = net.minecraft.registry.Registry
+                                    .register(net.minecraft.registry.Registries.ITEM, id, item);
+                            BREWERY_LOGBOOK_ITEM = registered;
+                            LOGGER.info("Registered brewery logbook item: {}", id);
                         }
                     }
                 } catch (Exception e) {
